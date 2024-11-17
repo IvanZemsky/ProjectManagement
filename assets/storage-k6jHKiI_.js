@@ -1,0 +1,1 @@
+import{A as s}from"./index-D9BQda8C.js";class n{constructor(){this.get=()=>s.get("positions"),this.getByName=e=>s.get("positions",t=>t.find(o=>o.name===e)),this.create=e=>{const t={name:e.name};return this.getByName(e.name)?null:s.set("positions",t,i=>({set:[...i,t],returnValue:t}))?t:null},s.get("positions")||s.set("positions",[])}}const u=new n;export{u as p};
