@@ -1,0 +1,1 @@
+export { Project as default } from "./ui/page";

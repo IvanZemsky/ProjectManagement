@@ -1,0 +1,1 @@
+export { CreateProject as default } from "./ui/page";

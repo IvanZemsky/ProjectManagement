@@ -1,0 +1,1 @@
+export { Positions as default } from "./ui/page";

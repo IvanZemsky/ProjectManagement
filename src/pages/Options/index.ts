@@ -1,0 +1,1 @@
+export {Options as default} from './ui/page'
