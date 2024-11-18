@@ -20,8 +20,6 @@ class TaskStore {
       this.isInitialized = true
    }
 
-   getAll = () => this.tasks
-
    getById = (id: string | undefined) => {
       return this.tasks.find((task) => task.id === id) || null
    }
@@ -55,15 +53,13 @@ class TaskStore {
       const isUnspecified = dto.assigneeId === SpecialValues.Unspecified
       const executor = isUnspecified ? null : executorStore.getById(dto.assigneeId)
 
-      const team = executor?.id ? [executor.id] : []
-
       const newTask: Task = {
          id: uuidv4(),
          projectId: dto.projectId,
          name: dto.name,
          description: dto.description,
          assignee: executor,
-         team,
+         team: [],
          status: dto.status,
       }
 

@@ -14,12 +14,15 @@ type Props = {
 
 export const TaskCard = forwardRef(
    ({ data, editBtn, deleteBtn, sx, ...attributes }: Props, ref: Ref<HTMLDivElement>) => {
-      const { id, projectId, name, assignee } = data
+      const { id, projectId, name, assignee, team } = data
       const taskPath = setPath("", Routes.Projects, projectId, Routes.Tasks, id)
 
       const handlePointerDown = (event: PointerEvent) => {
          event.stopPropagation()
       }
+
+      let teamSize = team.length
+      teamSize = !assignee ? teamSize : teamSize + 1
 
       return (
          <Card
@@ -45,7 +48,7 @@ export const TaskCard = forwardRef(
                      sx={{ justifyContent: "space-between" }}
                   >
                      <Typography>{assignee?.name || "Unspecified lead"}</Typography>
-                     <Chip label="0" icon={<GroupIcon />} size="small" />
+                     <Chip label={teamSize} icon={<GroupIcon />} size="small" />
                   </Stack>
                   <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
                      <BtnLink

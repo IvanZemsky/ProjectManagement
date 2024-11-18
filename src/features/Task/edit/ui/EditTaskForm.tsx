@@ -1,11 +1,5 @@
 import { executorStore } from "@/entities/Executor"
-import {
-   Task,
-   tasksColumns,
-   taskStore,
-   TaskStatus,
-   UpdateTaskDto,
-} from "@/entities/Task"
+import { Task, tasksColumns, taskStore, TaskStatus } from "@/entities/Task"
 import { SpecialValues } from "@/shared/constants"
 import {
    Button,
@@ -59,19 +53,17 @@ export const EditTaskForm = ({ taskId, setEditedTask }: Props) => {
    const executors = executorStore.get()
 
    const onSubmit = () => {
-      const task: UpdateTaskDto = {
+      const newTask: Task = {
+         ...editingTask,
          name: getValues("name").trim(),
          description: getValues("description").trim(),
-         assigneeId: getValues("assigneeId"),
+         assignee: executorStore.getById(getValues("assigneeId")),
          status: getValues("status") as TaskStatus,
       }
 
-      const newTask = taskStore.updateOne(taskId, task)
-      if (newTask) {
-         setIsSaved(true)
-         setEditedTask(newTask)
-         reset(task)
-      }
+      setIsSaved(true)
+      setEditedTask(newTask)
+      reset(newTask)
    }
 
    return (

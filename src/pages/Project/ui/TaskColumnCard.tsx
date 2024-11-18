@@ -12,7 +12,7 @@ type Props = {
    draggable: boolean
 }
 export const TaskColumnCard = ({ data, draggable }: Props) => {
-   const isDragEnabledOnScreen = useMediaQuery(theme.breakpoints.up('lg')) && draggable
+   const isDragEnabledOnScreen = useMediaQuery(theme.breakpoints.up("lg")) && draggable
    const [isDragEnabled, setIsDragEnabled] = useState(isDragEnabledOnScreen)
    const { id } = data
 
@@ -42,7 +42,8 @@ export const TaskColumnCard = ({ data, draggable }: Props) => {
                id={data.id}
                name={data.name}
                onPointerDown={handlePointerDown}
-               onEditorClose={handleEditorClose}/>
+               onEditorClose={handleEditorClose}
+            />
          }
          deleteBtn={
             <DeleteTaskBtn
