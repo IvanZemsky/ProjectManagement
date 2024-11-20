@@ -56,13 +56,14 @@ export const EditTaskForm = ({ taskId, setEditedTask }: Props) => {
       const newValues = {
          name: getValues("name").trim(),
          description: getValues("description").trim(),
-         assignee: executorStore.getById(getValues("assigneeId")),
+         assigneeId: getValues("assigneeId"),
          status: getValues("status") as TaskStatus,
       }
 
       const newTask: Task = {
          ...editingTask,
-         ...newValues
+         ...newValues,
+         assignee: executorStore.getById(newValues.assigneeId),
       }
 
       setIsSaved(true)

@@ -16,6 +16,7 @@ import {
    Home,
    Task,
    Tasks,
+   Executor,
 } from "./lazyPages"
 
 export const router = createHashRouter([
@@ -43,6 +44,10 @@ export const router = createHashRouter([
          {
             path: setPath(Routes.Projects, ":projectId", "create-task"),
             element: <CreateTask />,
+         },
+         {
+            path: setPath(Routes.Executors, ":executorId"),
+            element: <Executor />
          },
          {
             path: setPath(Routes.Projects, Routes.Create),

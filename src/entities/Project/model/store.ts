@@ -1,10 +1,10 @@
 import { autorun, makeAutoObservable } from "mobx"
 import { v4 as uuidv4 } from "uuid"
 import { CreateProjectDto, Project } from "./types"
-import { executorStore } from "@/entities/Executor/@x/project"
 import { SpecialValues } from "@/shared/constants"
 import { AppStorage, formatDate } from "@/shared/lib"
 import { GetData } from "@/shared/model"
+import { executorStore } from "@/entities/Executor/@x/project"
 import { taskStore } from "@/entities/Task/@x/project"
 
 class ProjectStore {
@@ -54,6 +54,21 @@ class ProjectStore {
       )
 
       return team
+   }
+
+   getAllWithLead = (
+      executorId: string,
+      page?: number,
+      limit?: number,
+   ): GetData<Project> => {
+      const filtered = this.projects.filter((project) => project.lead?.id === executorId)
+      const totalCount = filtered.length
+      if (limit === undefined || page === undefined) {
+         return { data: filtered, totalCount }
+      }
+      const startIndex = (page - 1) * limit
+      const paginated = filtered.slice(startIndex, startIndex + limit)
+      return { data: paginated, totalCount }
    }
 
    public create = (dto: CreateProjectDto) => {

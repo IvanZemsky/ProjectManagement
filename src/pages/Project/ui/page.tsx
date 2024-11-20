@@ -10,14 +10,9 @@ type Props = {}
 export const Project = ({}: Props) => {
    const { projectId } = useParams()
 
-   if (!projectId) {
-      return <Typography>Error</Typography>
-   }
+   const projectData = projectStore.getById(projectId as string)
 
-   const projectData = projectStore.getById(projectId)
-   const team = projectStore.getTeam(projectId)
-
-   if (!projectData) {
+   if (!projectData || !projectId) {
       return <Typography>Error</Typography>
    }
 
@@ -30,9 +25,9 @@ export const Project = ({}: Props) => {
             </BtnLink>
          </PageHeader>
 
-         <Info text={projectData.description} team={team}/>
+         <Info projectId={projectId}/>
 
-         <ProjectTasks projectId={projectId as string} />
+         <ProjectTasks projectId={projectId} />
       </Stack>
    )
 }

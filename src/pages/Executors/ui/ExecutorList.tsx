@@ -5,9 +5,7 @@ import { useState } from "react"
 
 const limit = 16
 
-type Props = {}
-
-export const ExecutorList = ({}: Props) => {
+export const ExecutorList = () => {
    const [page, setPage] = useState(1)
    const executors = executorStore.get(limit, page)
 

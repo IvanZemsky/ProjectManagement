@@ -14,7 +14,7 @@ export const ExecutorCard = ({ id, name, position }: Props) => {
       <Card
          variant="outlined"
          component={Link}
-         to={setPath(Routes.Executors, id)}
+         to={setPath("", Routes.Executors, id)}
          sx={{ textDecoration: "none", ":hover": { boxShadow: 5 } }}
       >
          <CardContent>

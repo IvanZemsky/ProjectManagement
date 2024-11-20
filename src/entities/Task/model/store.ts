@@ -1,9 +1,10 @@
-import { autorun, makeAutoObservable } from "mobx"
+import { autorun, makeAutoObservable, toJS } from "mobx"
 import { v4 as uuidv4 } from "uuid"
 import { CreateTaskDto, Task, UpdateTaskDto } from "./types"
 import { executorStore } from "@/entities/Executor/@x/task"
 import { SpecialValues } from "@/shared/constants"
 import { AppStorage } from "@/shared/lib"
+import { GetData } from "@/shared/model"
 
 class TaskStore {
    tasks: Task[] = []
@@ -26,6 +27,17 @@ class TaskStore {
 
    getByProjectId = (projectId: string) => {
       return this.tasks.filter((task) => task.projectId === projectId)
+   }
+
+   getAllWithExecutor = (executorId: string, page?: number, limit?: number): GetData<Task> => {
+      const filtered = this.tasks.filter(task => task.assignee?.id === executorId || task.team.includes(executorId))
+      const totalCount = filtered.length
+      if (limit === undefined || page === undefined) {
+         return { data: filtered, totalCount }
+      }
+      const startIndex = (page - 1) * limit
+      const paginated = filtered.slice(startIndex, startIndex + limit)
+      return { data: paginated, totalCount }
    }
 
    updateOne = (taskId: string, dto: UpdateTaskDto) => {

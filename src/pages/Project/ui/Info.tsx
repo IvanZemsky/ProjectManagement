@@ -6,19 +6,26 @@ import {
    Stack,
 } from "@mui/material"
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
-import { Executor } from "@/entities/Executor"
 import { TeamList } from "@/entities/Project/ui/TeamList"
 import { theme } from "@/shared/theme"
+import { projectStore } from "@/entities/Project"
+import { observer } from "mobx-react-lite"
 
 type Props = {
-   text: string
-   team: Executor[] | null
+   projectId: string
 }
-export const Info = ({ text, team }: Props) => {
+export const Info = observer(({ projectId }: Props) => {
+   const projectData = projectStore.getById(projectId)
+   const team = projectStore.getTeam(projectId)
+
+   if (!projectData) {
+      return <Typography>Error</Typography>
+   }
+
    return (
       <Accordion
          disableGutters
-         disabled={!text && !team?.length}
+         disabled={!projectData.description && !team?.length}
          sx={{ border: "1px solid", borderColor: theme.palette.white.dark }}
       >
          <AccordionSummary expandIcon={<ArrowDropDownIcon />} sx={{ fontSize: 18 }}>
@@ -27,11 +34,11 @@ export const Info = ({ text, team }: Props) => {
          <AccordionDetails>
             <Stack spacing={2} sx={{ alignItems: "flex-start" }}>
                <Typography>
-                  {text ? "Description" : "No description provided"}
+                  {projectData.description ? "Description" : "No description provided"}
                </Typography>
                {team?.length ? <TeamList team={team} /> : "Project team is empty"}
             </Stack>
          </AccordionDetails>
       </Accordion>
    )
-}
+})
