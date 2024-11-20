@@ -1,10 +1,10 @@
 import { useModal } from "@/shared/lib"
 import { BaseModal } from "@/shared/ui"
 import { IconButton, Tooltip } from "@mui/material"
-import EditIcon from "@mui/icons-material/Edit"
 import { EditTaskForm } from "./EditTaskForm"
 import { PointerEventHandler, useState } from "react"
 import { Task, taskStore } from "@/entities/Task"
+import EditIcon from "@mui/icons-material/Edit"
 
 type Props = {
    id: string
@@ -12,12 +12,13 @@ type Props = {
    onEditorClose?: (...args: any) => any
    onPointerDown?: PointerEventHandler<HTMLButtonElement>
 }
+
 export const EditTaskBtn = ({ id, name, onEditorClose, onPointerDown }: Props) => {
    const [editedTask, setEditedTask] = useState<Task | null>(null)
 
    const handleEditorClose = () => {
       if (editedTask) {
-         taskStore.update(id, editedTask)
+         taskStore.update(editedTask)
       }
       onEditorClose && onEditorClose()
    }

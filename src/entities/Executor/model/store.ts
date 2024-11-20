@@ -34,6 +34,10 @@ class ExecutorStore {
       return this.executors.find((executor) => executor.id === id) || null
    }
 
+   getManyById = (executors: string[]) => {
+      return this.executors.filter(executor => executors.includes(executor.id));
+   }  
+
    create = (dto: CreateExecutorDto): Executor | null => {
       const position = dto.position === SpecialValues.Unspecified ? null : dto.position
 

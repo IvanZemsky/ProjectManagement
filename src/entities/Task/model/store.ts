@@ -40,8 +40,8 @@ class TaskStore {
       return null
    }
 
-   update = (taskId: string, updatedTask: Task) => {
-      const index = this.tasks.findIndex((task) => task.id === taskId)
+   update = (updatedTask: Task) => {
+      const index = this.tasks.findIndex((task) => task.id === updatedTask.id)
       if (index !== -1) {
          this.tasks[index] = updatedTask
          return updatedTask

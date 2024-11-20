@@ -25,7 +25,7 @@ export const ProjectTasks = observer(({ projectId }: Props) => {
          taskId === task.id ? { ...task, status: newStatus } : task,
       )
 
-      taskStore.update(taskId, updatedTasks.find((task) => task.id === taskId)!)
+      taskStore.update(updatedTasks.find((task) => task.id === taskId)!)
       return updatedTasks
    }
 

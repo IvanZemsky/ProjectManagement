@@ -1,20 +1,26 @@
 import { projectStore } from "@/entities/Project"
 import { BtnLink } from "@/shared/ui"
 import { PageHeader } from "@/widgets/PageHeader"
-import { Stack } from "@mui/material"
+import { Stack, Typography } from "@mui/material"
 import { useParams } from "react-router-dom"
-import { Description } from "./Description"
+import { Info } from "./Info"
 import { ProjectTasks } from "./ProjectTasks"
 
 type Props = {}
 export const Project = ({}: Props) => {
    const { projectId } = useParams()
 
-   const projectData = projectStore.getById(projectId as string)
+   if (!projectId) {
+      return <Typography>Error</Typography>
+   }
+
+   const projectData = projectStore.getById(projectId)
+   const team = projectStore.getTeam(projectId)
 
    if (!projectData) {
-      return <p>Error</p>
+      return <Typography>Error</Typography>
    }
+
 
    return (
       <Stack spacing={1} sx={{ height: "100%" }}>
@@ -24,7 +30,7 @@ export const Project = ({}: Props) => {
             </BtnLink>
          </PageHeader>
 
-         <Description text={projectData.description} />
+         <Info text={projectData.description} team={team}/>
 
          <ProjectTasks projectId={projectId as string} />
       </Stack>

@@ -23,7 +23,7 @@ type FormValues = {
    endDate: string
 }
 
-export const Form = () => {
+export const CreateProjectForm = () => {
    const form = useForm<FormValues>({
       defaultValues: {
          name: "",

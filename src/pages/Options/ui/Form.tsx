@@ -108,7 +108,7 @@ export const Form = () => {
                onClick={handleSetDefault}
                sx={{ alignSelf: "flex-start" }}
             >
-               Default settings
+               Default options
             </Button>
             <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
                <Button variant="contained" disabled={!formState.isDirty} type="submit">
