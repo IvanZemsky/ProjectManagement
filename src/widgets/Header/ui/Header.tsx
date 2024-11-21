@@ -6,6 +6,7 @@ import GitHubIcon from "@mui/icons-material/GitHub"
 import SettingsIcon from "@mui/icons-material/Settings"
 import { IconBtnLink } from "@/shared/ui"
 import { setPath } from "@/shared/lib"
+import { OpenMobileMenuBtn } from "./OpenMobileMenuBtn"
 
 const linkSx: SxProps = {
    display: "flex",
@@ -58,6 +59,8 @@ export const Header = () => {
                   >
                      <SettingsIcon fontSize="small" />
                   </IconBtnLink>
+
+                  <OpenMobileMenuBtn/>
                </Stack>
             </Stack>
          </Toolbar>

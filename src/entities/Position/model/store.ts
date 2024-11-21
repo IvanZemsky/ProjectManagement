@@ -1,6 +1,7 @@
 import { autorun, makeAutoObservable } from "mobx"
 import { CreatePositionDto, Position } from "./types"
 import { AppStorage } from "@/shared/lib"
+import { v4 as uuidv4 } from "uuid"
 
 class PositionStore {
    positions: Position[] = []
@@ -21,6 +22,10 @@ class PositionStore {
       return this.positions
    }
 
+   getById = (id: string | null): Position | null => {
+      return this.positions.find((position) => position.id === id) || null
+   }
+
    public getByName = (name: string): Position | null => {
       return this.positions.find((position) => position.name === name) || null
    }
@@ -33,6 +38,7 @@ class PositionStore {
       }
 
       const position: Position = {
+         id: uuidv4(),
          name: dto.name,
       }
 

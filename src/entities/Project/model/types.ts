@@ -1,5 +1,14 @@
 import { Executor } from "@/entities/Executor/@x/project"
 
+export type ProjectData = {
+   id: string
+   name: string
+   description: string
+   leadId: string | null
+   startDate: string
+   endDate: string
+}
+
 export type Project = {
    id: string
    name: string

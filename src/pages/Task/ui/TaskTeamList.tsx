@@ -1,5 +1,4 @@
-import { Executor } from "@/entities/Executor"
-import { TeamList } from "@/entities/Project/ui/TeamList"
+import { Executor, TeamList } from "@/entities/Executor"
 import { EditTaskTeamChip } from "@/features/Task/editTeam"
 import { Stack, Typography } from "@mui/material"
 

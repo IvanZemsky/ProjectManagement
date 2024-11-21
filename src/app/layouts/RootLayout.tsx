@@ -14,7 +14,7 @@ export const RootLayout = () => {
 
    return (
       <Stack sx={{ height: "100vh" }}>
-         <Header />
+         <Header/>
          <Grid container size="grow" sx={{ flexWrap: "nowrap" }}>
             {options.menu !== 'right' && <Navbar />}
             <Stack

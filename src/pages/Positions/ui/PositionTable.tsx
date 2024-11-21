@@ -17,10 +17,10 @@ import {
 
 const getExecutorsAmountByPosition = (
    executors: Executor[] | undefined,
-   positionName: string,
+   positionId: string,
 ) => {
    if (!executors) return 0
-   return executors.filter((executor) => executor.position === positionName).length
+   return executors.filter((executor) => executor.position?.id === positionId).length
 }
 
 type Props = {}
@@ -56,7 +56,7 @@ export const PositionTable = ({}: Props) => {
                      <TableRow key={position.name + i} hover>
                         <TableCell>{position.name}</TableCell>
                         <TableCell align="right">
-                           {getExecutorsAmountByPosition(executors?.data, position.name)}
+                           {getExecutorsAmountByPosition(executors?.data, position.id)}
                         </TableCell>
                      </TableRow>
                   ))}

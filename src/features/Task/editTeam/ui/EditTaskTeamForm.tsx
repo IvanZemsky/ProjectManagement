@@ -1,5 +1,5 @@
 import { Executor, executorStore } from "@/entities/Executor"
-import { TeamList } from "@/entities/Project/ui/TeamList"
+import { TeamList } from "@/entities/Executor"
 import { Task, taskStore } from "@/entities/Task"
 import {
    Button,
@@ -11,7 +11,7 @@ import {
    Stack,
    Typography,
 } from "@mui/material"
-import { useState, FormEvent, Dispatch, SetStateAction, useEffect } from "react"
+import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from "react"
 
 type Props = {
    taskId: string
@@ -87,7 +87,7 @@ export const EditTaskTeamForm = ({ taskId, setEditedTask }: Props) => {
                </Select>
             </FormControl>
             {team.length ? (
-               <TeamList team={team} onDelete={handleRemoveExecutor} link={false}/>
+               <TeamList team={team} onDelete={handleRemoveExecutor} links={false} />
             ) : (
                <Typography>Task team is empty now</Typography>
             )}

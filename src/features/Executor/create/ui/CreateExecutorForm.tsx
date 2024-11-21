@@ -39,7 +39,7 @@ export const CreateExecutorForm = ({}: Props) => {
    const onSubmit = () => {
       const executor: CreateExecutorDto = {
          name: getValues("name"),
-         position: getValues("position"),
+         positionId: getValues("position"),
       }
 
       const newExecutor = executorStore.create(executor)
@@ -76,7 +76,7 @@ export const CreateExecutorForm = ({}: Props) => {
                   </MenuItem>
                   {!!positions?.length &&
                      positions.map((position) => (
-                        <MenuItem value={position.name} key={position.name}>
+                        <MenuItem value={position.id} key={position.name}>
                            {position.name}
                         </MenuItem>
                      ))}

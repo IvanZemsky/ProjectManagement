@@ -10,6 +10,7 @@ import {
    Select,
    Stack,
    TextField,
+   Typography,
 } from "@mui/material"
 import { useForm } from "react-hook-form"
 import { useNavigate, useParams } from "react-router-dom"
@@ -25,7 +26,7 @@ export const CreateTaskForm = () => {
    const { projectId } = useParams()
 
    if (!projectId) {
-      return <p>Error</p>
+      return <Typography>Error</Typography>
    }
 
    const form = useForm<FormValues>({

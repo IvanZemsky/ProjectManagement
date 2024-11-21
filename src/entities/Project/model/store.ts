@@ -1,6 +1,6 @@
 import { autorun, makeAutoObservable } from "mobx"
 import { v4 as uuidv4 } from "uuid"
-import { CreateProjectDto, Project } from "./types"
+import { CreateProjectDto, Project, ProjectData } from "./types"
 import { SpecialValues } from "@/shared/constants"
 import { AppStorage, formatDate } from "@/shared/lib"
 import { GetData } from "@/shared/model"
@@ -8,7 +8,7 @@ import { executorStore } from "@/entities/Executor/@x/project"
 import { taskStore } from "@/entities/Task/@x/project"
 
 class ProjectStore {
-   projects: Project[] = []
+   projects: ProjectData[] = []
    isInitialized = false
 
    constructor() {
@@ -18,22 +18,37 @@ class ProjectStore {
    }
 
    private loadProjects() {
-      this.projects = AppStorage.get<Project[]>("projects") || []
+      this.projects = AppStorage.get<ProjectData[]>("projects") || []
       this.isInitialized = true
+   }
+
+   private mapToProject(projectData: ProjectData): Project {
+      const executor = projectData.leadId
+         ? executorStore.getById(projectData.leadId)
+         : null
+
+      const { leadId, ...rest } = projectData
+
+      return {
+         ...rest,
+         lead: executor,
+      }
    }
 
    public get = (limit?: number, page?: number): GetData<Project> => {
       const totalCount = this.projects.length
+      const data = this.projects.map((project) => this.mapToProject(project))
       if (limit === undefined || page === undefined) {
-         return { data: this.projects, totalCount }
+         return { data, totalCount }
       }
       const startIndex = (page - 1) * limit
-      const filtered = this.projects.slice(startIndex, startIndex + limit)
+      const filtered = data.slice(startIndex, startIndex + limit)
       return { data: filtered, totalCount }
    }
 
-   public getById = (id: string) => {
-      return this.projects.find((project) => project.id === id) || null
+   public getById = (id: string): Project | null => {
+      const project = this.projects.find((project) => project.id === id)
+      return project ? this.mapToProject(project) : null
    }
 
    public getTeam = (projectId: string) => {
@@ -49,8 +64,12 @@ class ProjectStore {
          .map((task) => task.assignee?.id)
          .filter((value) => value !== undefined)
       const tasksTeam = [...tasksExecutors, ...tasksAssignees]
+
       const team = executors.data.filter((executor) =>
-         tasksTeam.some((taskExecutor) => executor.id === taskExecutor),
+         tasksTeam.some(
+            (taskExecutor) =>
+               executor.id === taskExecutor
+         ),
       )
 
       return team
@@ -61,7 +80,9 @@ class ProjectStore {
       page?: number,
       limit?: number,
    ): GetData<Project> => {
-      const filtered = this.projects.filter((project) => project.lead?.id === executorId)
+      const filtered = this.projects
+         .filter((project) => project.leadId === executorId)
+         .map((project) => this.mapToProject(project))
       const totalCount = filtered.length
       if (limit === undefined || page === undefined) {
          return { data: filtered, totalCount }
@@ -75,23 +96,23 @@ class ProjectStore {
       const isUnspecified = dto.leadId === SpecialValues.Unspecified
       const executor = isUnspecified ? null : executorStore.getById(dto.leadId)
 
-      const project: Project = {
+      const project: ProjectData = {
          id: uuidv4(),
          name: dto.name,
          description: dto.description,
-         lead: executor,
+         leadId: executor?.id || null,
          startDate: formatDate(dto.startDate),
          endDate: formatDate(dto.endDate),
       }
 
       this.projects.push(project)
-      return project
+      return this.mapToProject(project)
    }
 
    private autosaveState = () => {
       autorun(() => {
          if (this.isInitialized) {
-            AppStorage.set<Project[]>("projects", this.projects)
+            AppStorage.set<ProjectData[]>("projects", this.projects)
          }
       })
    }

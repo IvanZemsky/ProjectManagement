@@ -1,92 +1,116 @@
-import { autorun, makeAutoObservable, toJS } from "mobx"
+import { autorun, makeAutoObservable } from "mobx"
 import { v4 as uuidv4 } from "uuid"
-import { CreateTaskDto, Task, UpdateTaskDto } from "./types"
+import { CreateTaskDto, Task, TaskData, UpdateTaskDto } from "./types"
 import { executorStore } from "@/entities/Executor/@x/task"
 import { SpecialValues } from "@/shared/constants"
 import { AppStorage } from "@/shared/lib"
 import { GetData } from "@/shared/model"
 
 class TaskStore {
-   tasks: Task[] = []
+   tasks: TaskData[] = []
    isInitialized = false
 
    constructor() {
       makeAutoObservable(this)
       this.loadTasks()
-      this.autosaveState() 
+      this.autosaveState()
    }
 
    private loadTasks() {
-      this.tasks = AppStorage.get<Task[]>("tasks") || []
+      this.tasks = AppStorage.get<TaskData[]>("tasks") || []
       this.isInitialized = true
    }
 
-   getById = (id: string | undefined) => {
-      return this.tasks.find((task) => task.id === id) || null
+   private mapToTask = (taskData: TaskData): Task => {
+      const {assigneeId, ...rest} = taskData
+      return {...rest, assignee: executorStore.getById(taskData.assigneeId),}
    }
 
-   getByProjectId = (projectId: string) => {
-      return this.tasks.filter((task) => task.projectId === projectId)
+   private mapToTaskData = (task: Task): TaskData => {
+      const {assignee, ...rest} = task
+      return {...rest, assigneeId: task.assignee?.id || null,}
    }
 
-   getAllWithExecutor = (executorId: string, page?: number, limit?: number): GetData<Task> => {
-      const filtered = this.tasks.filter(task => task.assignee?.id === executorId || task.team.includes(executorId))
+   getById = (id: string | undefined): Task | null => {
+      const taskData = this.tasks.find((task) => task.id === id) || null
+      return taskData ? this.mapToTask(taskData) : null
+   }
+
+   getByProjectId = (projectId: string): Task[] => {
+      return this.tasks.filter((task) => task.projectId === projectId).map(this.mapToTask)
+   }
+
+   getAllWithExecutor = (
+      executorId: string,
+      page?: number,
+      limit?: number,
+   ): GetData<Task> => {
+      const filtered = this.tasks.filter(
+         (task) => task.assigneeId === executorId || task.team.includes(executorId),
+      )
+
       const totalCount = filtered.length
+
       if (limit === undefined || page === undefined) {
-         return { data: filtered, totalCount }
+         return { data: filtered.map(this.mapToTask), totalCount }
       }
+
       const startIndex = (page - 1) * limit
       const paginated = filtered.slice(startIndex, startIndex + limit)
-      return { data: paginated, totalCount }
+
+      return { data: paginated.map(this.mapToTask), totalCount }
    }
 
-   updateOne = (taskId: string, dto: UpdateTaskDto) => {
-      const isUnspecified = dto.assigneeId === SpecialValues.Unspecified
-      const executor = isUnspecified ? null : executorStore.getById(dto.assigneeId)
+   updateOne = (taskId: string, dto: UpdateTaskDto): Task | null => {
+      const updatedTaskData = this.tasks.find((task) => task.id === taskId)
 
-      const updatedTask = this.tasks.find((task) => task.id === taskId)
-      if (updatedTask) {
-         Object.assign(updatedTask, dto, { assignee: executor })
-         return updatedTask
+      if (updatedTaskData) {
+         Object.assign(updatedTaskData, dto, { assigneeId: dto.assigneeId })
+
+         return this.mapToTask(updatedTaskData)
       }
+
       return null
    }
 
-   update = (updatedTask: Task) => {
+   update = (updatedTask: Task): Task | null => {
       const index = this.tasks.findIndex((task) => task.id === updatedTask.id)
+
       if (index !== -1) {
-         this.tasks[index] = updatedTask
-         return updatedTask
+         this.tasks[index] = this.mapToTaskData(updatedTask)
+         return this.mapToTask(this.tasks[index])
       }
+
       return null
    }
 
-   create = (dto: CreateTaskDto) => {
+   create = (dto: CreateTaskDto): Task => {
       const isUnspecified = dto.assigneeId === SpecialValues.Unspecified
       const executor = isUnspecified ? null : executorStore.getById(dto.assigneeId)
 
-      const newTask: Task = {
+      const newTaskData: TaskData = {
          id: uuidv4(),
          projectId: dto.projectId,
          name: dto.name,
          description: dto.description,
-         assignee: executor,
+         assigneeId: executor?.id || null,
          team: [],
          status: dto.status,
       }
 
-      this.tasks.push(newTask)
-      return newTask
+      this.tasks.push(newTaskData)
+
+      return this.mapToTask(newTaskData)
    }
 
-   delete = (id: string) => {
+   delete = (id: string): void => {
       this.tasks = this.tasks.filter((task) => task.id !== id)
    }
 
    private autosaveState = () => {
       autorun(() => {
          if (this.isInitialized) {
-            AppStorage.set<Task[]>("tasks", this.tasks)
+            AppStorage.set<TaskData[]>("tasks", this.tasks)
          }
       })
    }

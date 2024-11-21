@@ -1,3 +1,5 @@
+export { TeamList } from "./ui/TeamList"
+export { Assignee } from "./ui/Assignee"
 export { executorStore } from "./model/store"
-export type { CreateExecutorDto, Executor } from "../Executor/model/types"
+export type { CreateExecutorDto, Executor, ExecutorData } from "../Executor/model/types"
 export { ExecutorCard } from "./ui/ExecutorCard"

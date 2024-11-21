@@ -18,6 +18,8 @@ import { tableHeader } from "../model/table"
 
 type Props = {}
 
+const getTeamLength = (projectId: string) => projectStore.getTeam(projectId)?.length || 0
+
 export const ProjectTable = ({}: Props) => {
    const projects = projectStore.get()
 
@@ -52,7 +54,7 @@ export const ProjectTable = ({}: Props) => {
                         <TableCell align="right">
                            {project.lead?.name || "Unspecified"}
                         </TableCell>
-                        <TableCell align="right">{project.team.length}</TableCell>
+                        <TableCell align="right">{getTeamLength(project.id)}</TableCell>
                         <TableCell align="right">{project.startDate}</TableCell>
                         <TableCell align="right">{project.endDate}</TableCell>
                      </TableRow>

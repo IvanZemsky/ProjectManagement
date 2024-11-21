@@ -1,10 +1,18 @@
-export type Executor = {
+import type {Position} from '@/entities/Position/@x/executor'
+
+export type ExecutorData= {
    id: string
    name: string
-   position: string | null
+   positionId: string | null
+}
+
+export type Executor= {
+   id: string
+   name: string
+   position: Position | null
 }
 
 export type CreateExecutorDto = {
    name: string
-   position: string | null
+   positionId: string | null
 }

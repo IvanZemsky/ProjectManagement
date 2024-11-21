@@ -19,7 +19,7 @@ export const Executor = ({}: Props) => {
       <Stack spacing={2}>
          <Box>
             <PageHeader title={executor.name} />
-            <Typography>{executor.position || "Unspecified position"}</Typography>
+            <Typography>{executor.position?.name || "Unspecified position"}</Typography>
          </Box>
          <Stack spacing={3}>
             <ExecutorTaskList executorId={executorId} />

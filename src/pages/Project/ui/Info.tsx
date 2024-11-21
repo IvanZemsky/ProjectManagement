@@ -1,14 +1,14 @@
+import { TeamList, Assignee } from "@/entities/Executor"
+import { projectStore } from "@/entities/Project"
+import { theme } from "@/shared/theme"
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 import {
    Accordion,
-   AccordionSummary,
    AccordionDetails,
-   Typography,
+   AccordionSummary,
    Stack,
+   Typography,
 } from "@mui/material"
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
-import { TeamList } from "@/entities/Project/ui/TeamList"
-import { theme } from "@/shared/theme"
-import { projectStore } from "@/entities/Project"
 import { observer } from "mobx-react-lite"
 
 type Props = {
@@ -34,9 +34,14 @@ export const Info = observer(({ projectId }: Props) => {
          <AccordionDetails>
             <Stack spacing={2} sx={{ alignItems: "flex-start" }}>
                <Typography>
-                  {projectData.description ? "Description" : "No description provided"}
+                  {projectData.description || "No description provided"}
                </Typography>
-               {team?.length ? <TeamList team={team} /> : "Project team is empty"}
+               <Assignee assignee={projectData?.lead} />
+               {team?.length ? (
+                  <TeamList team={team} excludeId={projectData.lead?.id} />
+               ) : (
+                  "Project team is empty"
+               )}
             </Stack>
          </AccordionDetails>
       </Accordion>

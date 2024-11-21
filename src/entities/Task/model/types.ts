@@ -7,6 +7,16 @@ export type TaskColumnData = {
    label: string
 }
 
+export type TaskData = {
+   id: string
+   projectId: string
+   name: string
+   description: string
+   assigneeId: string | null
+   team: string[] // ids
+   status: TaskStatus
+}
+
 export type Task = {
    id: string
    projectId: string

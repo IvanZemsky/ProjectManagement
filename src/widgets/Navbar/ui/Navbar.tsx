@@ -1,9 +1,8 @@
 import { Stack } from "@mui/material"
 import { blue } from "@mui/material/colors"
-
-import { navLinks } from "../model/navLinks"
 import { NavLink } from "@/shared/ui"
 import { theme } from "@/shared/theme"
+import { navLinks } from "@/shared/constants"
 
 export const Navbar = () => {
    return (

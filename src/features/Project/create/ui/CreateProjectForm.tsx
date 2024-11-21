@@ -11,7 +11,7 @@ import {
    Stack,
    TextField,
 } from "@mui/material"
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 
@@ -33,21 +33,34 @@ export const CreateProjectForm = () => {
          startDate: "",
       },
    })
-   const [dateError, setDateError] = useState(false)
 
    const navigate = useNavigate()
 
-   const { register, handleSubmit, getValues } = form
+   const { register, handleSubmit, getValues, setError, clearErrors, formState } = form
+   const { errors } = formState
 
    const executors = useMemo(() => executorStore.get(), [])
 
    const onSubmit = () => {
+      const startDate = getValues("startDate")
+      const endDate = getValues("endDate")
+
+      if (new Date(startDate) > new Date(endDate)) {
+         setError("endDate", {
+            type: "validate",
+            message: "End date cannot be earlier than start date.",
+         })
+         return
+      }
+
+      clearErrors("endDate")
+
       const project: CreateProjectDto = {
          name: getValues("name"),
          description: getValues("description"),
          leadId: getValues("leadId"),
-         startDate: getValues("startDate"),
-         endDate: getValues("endDate"),
+         startDate,
+         endDate,
       }
 
       const newProject = projectStore.create(project)
@@ -65,8 +78,10 @@ export const CreateProjectForm = () => {
                variant="filled"
                sx={{ alignSelf: "flex-start", maxWidth: 400, width: "100%" }}
                size="small"
+               error={!!errors.name}
+               helperText={errors.name?.message}
                {...register("name", {
-                  required: true,
+                  required: "Name is required.",
                })}
             />
 
@@ -112,8 +127,10 @@ export const CreateProjectForm = () => {
                sx={{ alignSelf: "flex-start", maxWidth: 400, width: "100%" }}
                size="small"
                type="date"
+               error={!!errors.startDate}
+               helperText={errors.startDate?.message}
                {...register("startDate", {
-                  required: true,
+                  required: "Start date is required.",
                })}
             />
 
@@ -125,8 +142,10 @@ export const CreateProjectForm = () => {
                sx={{ alignSelf: "flex-start", maxWidth: 400, width: "100%" }}
                size="small"
                type="date"
+               error={!!errors.endDate}
+               helperText={errors.endDate?.message}
                {...register("endDate", {
-                  required: true,
+                  required: "End date is required.",
                })}
             />
 

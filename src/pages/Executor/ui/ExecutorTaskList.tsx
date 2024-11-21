@@ -19,7 +19,7 @@ export const ExecutorTaskList = ({ executorId }: Props) => {
 
    return (
       <Stack spacing={1}>
-         <Typography variant="h3">Assigned to projects</Typography>
+         <Typography variant="h3">Assigned to tasks</Typography>
          <Stack spacing={2} sx={{ flexGrow: 1, justifyContent: "space-between" }}>
             <AutoGrid minItemWidth={"270px"} spacing={2}>
                {tasks.data.map((task) => (

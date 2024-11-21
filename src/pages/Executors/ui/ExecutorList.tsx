@@ -17,7 +17,7 @@ export const ExecutorList = () => {
       <Stack spacing={2} sx={{ flexGrow: 1, justifyContent: "space-between" }}>
          <AutoGrid minItemWidth={"300px"} spacing={2}>
             {executors?.data.map((executor) => (
-               <ExecutorCard key={executor.id} {...executor} />
+               <ExecutorCard key={executor.id} data={executor} />
             ))}
          </AutoGrid>
          <PageBtns
