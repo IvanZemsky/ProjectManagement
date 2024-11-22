@@ -13,7 +13,8 @@ const linkSx: SxProps = {
    alignItems: "center",
    gap: 0.5,
    color: theme.palette.primary.contrastText,
-   fontSize: 14,
+   fontSize: 15,
+   lineHeight: 1,
 }
 
 export const Header = () => {
@@ -30,7 +31,7 @@ export const Header = () => {
             <Stack
                direction="row"
                spacing={2}
-               sx={{ justifyContent: "space-between", flexGrow: 1 }}
+               sx={{ justifyContent: "space-between", flexGrow: 1, alignItems: "center" }}
             >
                <Link
                   component={RouterLink}
@@ -42,14 +43,23 @@ export const Header = () => {
                >
                   App
                </Link>
-               <Stack direction="row" spacing={1.5}>
+               <Stack direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
                   <Link
                      href={"https://github.com/IvanZemsky/projects-react-1"}
                      sx={linkSx}
                      target="_blank"
                      rel="noopener noreferrer"
                   >
-                     <GitHubIcon fontSize="small" /> GitHub
+                     <GitHubIcon
+                        fontSize="small"
+                        sx={{
+                           [theme.breakpoints.down("md")]: {
+                              mb: 0.2,
+                              fontSize: 24,
+                           },
+                        }}
+                     />{" "}
+                     GitHub
                   </Link>
 
                   <IconBtnLink
@@ -60,7 +70,7 @@ export const Header = () => {
                      <SettingsIcon fontSize="small" />
                   </IconBtnLink>
 
-                  <OpenMobileMenuBtn/>
+                  <OpenMobileMenuBtn />
                </Stack>
             </Stack>
          </Toolbar>

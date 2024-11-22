@@ -25,7 +25,6 @@ export const Info = observer(({ projectId }: Props) => {
    return (
       <Accordion
          disableGutters
-         disabled={!projectData.description && !team?.length}
          sx={{ border: "1px solid", borderColor: theme.palette.white.dark }}
       >
          <AccordionSummary expandIcon={<ArrowDropDownIcon />} sx={{ fontSize: 18 }}>
@@ -40,7 +39,7 @@ export const Info = observer(({ projectId }: Props) => {
                {team?.length ? (
                   <TeamList team={team} excludeId={projectData.lead?.id} />
                ) : (
-                  "Project team is empty"
+                  <Typography>Project team is empty</Typography>
                )}
             </Stack>
          </AccordionDetails>

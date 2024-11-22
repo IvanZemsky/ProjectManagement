@@ -4,9 +4,11 @@ import { Box, Stack, Typography } from "@mui/material"
 import { useParams } from "react-router-dom"
 import { ExecutorTaskList } from "./ExecutorTaskList"
 import { ExecutorProjectList } from "./ExecutorProjectList"
+import { EditExecutorBtn } from "@/features/Executor/edit"
+import { DeleteExecutorBtn } from "@/features/Executor/delete"
+import { observer } from "mobx-react-lite"
 
-type Props = {}
-export const Executor = ({}: Props) => {
+export const Executor = observer(() => {
    const { executorId } = useParams()
 
    const executor = executorStore.getById(executorId)
@@ -18,7 +20,10 @@ export const Executor = ({}: Props) => {
    return (
       <Stack spacing={2}>
          <Box>
-            <PageHeader title={executor.name} />
+            <PageHeader title={executor.name}>
+               <EditExecutorBtn id={executorId} name={executor.name} />
+               <DeleteExecutorBtn id={executorId} name={executor.name} redirectOnDelete/>
+            </PageHeader>
             <Typography>{executor.position?.name || "Unspecified position"}</Typography>
          </Box>
          <Stack spacing={3}>
@@ -27,4 +32,4 @@ export const Executor = ({}: Props) => {
          </Stack>
       </Stack>
    )
-}
+})

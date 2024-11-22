@@ -109,6 +109,14 @@ class ProjectStore {
       return this.mapToProject(project)
    }
 
+   public removeNonexistentPositionId = (executorId: string) => {
+      const updatedProjects = this.projects.map((project) => ({
+         ...project,
+         leadId: project.leadId === executorId ? null : project.leadId,
+      }))
+      this.projects = [...updatedProjects]
+   }
+
    private autosaveState = () => {
       autorun(() => {
          if (this.isInitialized) {

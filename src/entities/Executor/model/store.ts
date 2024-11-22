@@ -5,6 +5,8 @@ import { Executor, CreateExecutorDto, ExecutorData } from "./types"
 import { v4 as uuidv4 } from "uuid"
 import { AppStorage } from "@/shared/lib"
 import { positionStore } from "@/entities/Position/@x/executor"
+import { taskStore } from "@/entities/Task/@x/executor"
+import { projectStore } from "@/entities/Project/@x/executor"
 
 class ExecutorStore {
    executors: ExecutorData[] = []
@@ -26,7 +28,12 @@ class ExecutorStore {
       return { ...rest, position: positionStore.getById(executorData.positionId) }
    }
 
-   get = (limit?: number, page?: number): GetData<Executor> | null => {
+   private mapToTaskData = (executor: Executor): ExecutorData => {
+      const { position, ...rest } = executor
+      return { ...rest, positionId: executor.position?.id || null }
+   }
+
+   public get = (limit?: number, page?: number): GetData<Executor> | null => {
       const totalCount = this.executors.length
 
       if (limit === undefined || page === undefined) {
@@ -44,7 +51,7 @@ class ExecutorStore {
       }
    }
 
-   getById = (id: string | undefined | null): Executor | null => {
+   public getById = (id: string | undefined | null): Executor | null => {
       const executor = this.executors.find((executor) => executor.id === id) || null
       if (!executor) return null
 
@@ -55,7 +62,7 @@ class ExecutorStore {
       }
    }
 
-   getManyById = (ids: string[]): Executor[] => {
+   public getManyById = (ids: string[]): Executor[] => {
       return this.executors
          .filter((executor) => ids.includes(executor.id))
          .map((executor) => ({
@@ -64,7 +71,20 @@ class ExecutorStore {
          }))
    }
 
-   create = (dto: CreateExecutorDto): Executor | null => {
+   update = (updatedExecutor: Executor): Executor | null => {
+      const index = this.executors.findIndex(
+         (executor) => executor.id === updatedExecutor.id,
+      )
+
+      if (index !== -1) {
+         this.executors[index] = this.mapToTaskData(updatedExecutor)
+         return this.mapToExecutor(this.executors[index])
+      }
+
+      return null
+   }
+
+   public create = (dto: CreateExecutorDto): Executor | null => {
       const positionId =
          dto.positionId === SpecialValues.Unspecified ? null : dto.positionId
       const id = uuidv4()
@@ -77,6 +97,20 @@ class ExecutorStore {
 
       this.executors.push(executorData)
       return this.getById(id)
+   }
+
+   delete = (id: string): void => {
+      this.executors = this.executors.filter((executor) => executor.id !== id)
+      taskStore.removeNonexistentExecutorId(id)
+      projectStore.removeNonexistentPositionId(id)
+   }
+
+   public removeNonexistentPositionId = (positionId: string) => {
+      const updatedExecutors = this.executors.map((executor) => ({
+         ...executor,
+         positionId: executor.positionId === positionId ? null : executor.positionId,
+      }))
+      this.executors = [...updatedExecutors]
    }
 
    private autosaveState = () => {

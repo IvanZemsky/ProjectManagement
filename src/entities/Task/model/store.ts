@@ -22,13 +22,13 @@ class TaskStore {
    }
 
    private mapToTask = (taskData: TaskData): Task => {
-      const {assigneeId, ...rest} = taskData
-      return {...rest, assignee: executorStore.getById(taskData.assigneeId),}
+      const { assigneeId, ...rest } = taskData
+      return { ...rest, assignee: executorStore.getById(taskData.assigneeId) }
    }
 
    private mapToTaskData = (task: Task): TaskData => {
-      const {assignee, ...rest} = task
-      return {...rest, assigneeId: task.assignee?.id || null,}
+      const { assignee, ...rest } = task
+      return { ...rest, assigneeId: task.assignee?.id || null }
    }
 
    getById = (id: string | undefined): Task | null => {
@@ -105,6 +105,15 @@ class TaskStore {
 
    delete = (id: string): void => {
       this.tasks = this.tasks.filter((task) => task.id !== id)
+   }
+
+   public removeNonexistentExecutorId = (executorId: string) => {
+      const updatedTasks = this.tasks.map((task) => ({
+         ...task,
+         assigneeId: task.assigneeId === executorId ? null : task.assigneeId,
+         team: task.team.filter((teamExecutorId) => teamExecutorId !== executorId),
+      }))
+      this.tasks = [...updatedTasks]
    }
 
    private autosaveState = () => {

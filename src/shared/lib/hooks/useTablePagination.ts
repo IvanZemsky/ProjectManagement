@@ -6,7 +6,7 @@ export const useTablePagination = <T>(data: T[], initialRowsPerPage: number) => 
 
    const visibleRows = useMemo(
       () => [...data].slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-      [page, rowsPerPage],
+      [data, page, rowsPerPage],
    )
 
    const handleChangePage = (event: unknown, newPage: number) => {

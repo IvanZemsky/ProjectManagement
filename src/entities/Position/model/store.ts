@@ -2,6 +2,7 @@ import { autorun, makeAutoObservable } from "mobx"
 import { CreatePositionDto, Position } from "./types"
 import { AppStorage } from "@/shared/lib"
 import { v4 as uuidv4 } from "uuid"
+import { executorStore } from "@/entities/Executor/@x/position"
 
 class PositionStore {
    positions: Position[] = []
@@ -30,6 +31,20 @@ class PositionStore {
       return this.positions.find((position) => position.name === name) || null
    }
 
+   public update = (updatedPosition: Position): Position | null => {
+      const index = this.positions.findIndex(
+         (position) => position.id === updatedPosition.id,
+      )
+
+      if (index !== -1) {
+         this.positions[index] = updatedPosition
+         this.positions = [...this.positions] // for correct state updating
+         return updatedPosition
+      }
+
+      return null
+   }
+
    public create = (dto: CreatePositionDto): Position | null => {
       const isExist = !!this.getByName(dto.name)
 
@@ -44,6 +59,11 @@ class PositionStore {
 
       this.positions.push(position)
       return position
+   }
+
+   delete = (id: string): void => {
+      this.positions = this.positions.filter((position) => position.id !== id)
+      executorStore.removeNonexistentPositionId(id)
    }
 
    private autosaveState = () => {

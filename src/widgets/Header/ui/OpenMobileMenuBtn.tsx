@@ -18,10 +18,9 @@ export const OpenMobileMenuBtn = () => {
       <>
          <IconButton
             onClick={handleModalOpen}
-            size="small"
             sx={{ p: 0, color: "primary.contrastText" }}
          >
-            <MenuIcon />
+            <MenuIcon sx={{fontSize: 33}}/>
          </IconButton>
          <BaseModal open={openModal} title="Menu" onClose={handleModalClose}>
             {navLinks.map((link) => (

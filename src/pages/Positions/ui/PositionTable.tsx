@@ -1,5 +1,7 @@
 import { Executor, executorStore } from "@/entities/Executor"
 import { positionStore } from "@/entities/Position"
+import { DeletePositionBtn } from "@/features/Position/delete"
+import { EditPositionBtn } from "@/features/Position/edit"
 import { useTablePagination } from "@/shared/lib"
 import { theme } from "@/shared/theme/theme"
 import {
@@ -14,6 +16,7 @@ import {
    TableRow,
    Typography,
 } from "@mui/material"
+import { observer } from "mobx-react-lite"
 
 const getExecutorsAmountByPosition = (
    executors: Executor[] | undefined,
@@ -24,7 +27,7 @@ const getExecutorsAmountByPosition = (
 }
 
 type Props = {}
-export const PositionTable = ({}: Props) => {
+export const PositionTable = observer(({}: Props) => {
    const positions = positionStore.get()
    const executors = executorStore.get()
 
@@ -49,6 +52,8 @@ export const PositionTable = ({}: Props) => {
                      <TableCell sx={{ py: 1 }} align="right">
                         Executors
                      </TableCell>
+                     <TableCell sx={{ width: '10px', p: 0.5}}/>
+                     <TableCell sx={{ width: '10px', p: 0.5}}/>
                   </TableRow>
                </TableHead>
                <TableBody>
@@ -57,6 +62,12 @@ export const PositionTable = ({}: Props) => {
                         <TableCell>{position.name}</TableCell>
                         <TableCell align="right">
                            {getExecutorsAmountByPosition(executors?.data, position.id)}
+                        </TableCell>
+                        <TableCell sx={{ width: '10px', p: 0.5}}>
+                           <EditPositionBtn id={position.id} name={position.name} />
+                        </TableCell>
+                        <TableCell sx={{ width: '10px', p: 0.5}}>
+                           <DeletePositionBtn id={position.id} name={position.name} />
                         </TableCell>
                      </TableRow>
                   ))}
@@ -74,4 +85,4 @@ export const PositionTable = ({}: Props) => {
          />
       </Stack>
    )
-}
+})
