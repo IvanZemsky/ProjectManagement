@@ -28,7 +28,7 @@ class ExecutorStore {
       return { ...rest, position: positionStore.getById(executorData.positionId) }
    }
 
-   private mapToTaskData = (executor: Executor): ExecutorData => {
+   private mapToExecutorData = (executor: Executor): ExecutorData => {
       const { position, ...rest } = executor
       return { ...rest, positionId: executor.position?.id || null }
    }
@@ -77,7 +77,7 @@ class ExecutorStore {
       )
 
       if (index !== -1) {
-         this.executors[index] = this.mapToTaskData(updatedExecutor)
+         this.executors[index] = this.mapToExecutorData(updatedExecutor)
          return this.mapToExecutor(this.executors[index])
       }
 

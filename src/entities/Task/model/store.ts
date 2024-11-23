@@ -107,13 +107,16 @@ class TaskStore {
       this.tasks = this.tasks.filter((task) => task.id !== id)
    }
 
+   public removeNonexistent = (projectId: string) => {
+      this.tasks = this.tasks.filter(task => task.projectId !== projectId)
+   }
+
    public removeNonexistentExecutorId = (executorId: string) => {
-      const updatedTasks = this.tasks.map((task) => ({
+      this.tasks = this.tasks.map((task) => ({
          ...task,
          assigneeId: task.assigneeId === executorId ? null : task.assigneeId,
          team: task.team.filter((teamExecutorId) => teamExecutorId !== executorId),
       }))
-      this.tasks = [...updatedTasks]
    }
 
    private autosaveState = () => {

@@ -35,6 +35,11 @@ class ProjectStore {
       }
    }
 
+   private mapToProjectData = (project: Project): ProjectData => {
+      const { lead, ...rest } = project
+      return { ...rest, leadId: lead?.id || null }
+   }
+
    public get = (limit?: number, page?: number): GetData<Project> => {
       const totalCount = this.projects.length
       const data = this.projects.map((project) => this.mapToProject(project))
@@ -66,10 +71,7 @@ class ProjectStore {
       const tasksTeam = [...tasksExecutors, ...tasksAssignees]
 
       const team = executors.data.filter((executor) =>
-         tasksTeam.some(
-            (taskExecutor) =>
-               executor.id === taskExecutor
-         ),
+         tasksTeam.some((taskExecutor) => executor.id === taskExecutor),
       )
 
       return team
@@ -83,13 +85,36 @@ class ProjectStore {
       const filtered = this.projects
          .filter((project) => project.leadId === executorId)
          .map((project) => this.mapToProject(project))
+
       const totalCount = filtered.length
+
       if (limit === undefined || page === undefined) {
          return { data: filtered, totalCount }
       }
+
       const startIndex = (page - 1) * limit
       const paginated = filtered.slice(startIndex, startIndex + limit)
+
       return { data: paginated, totalCount }
+   }
+
+   update = (updatedProject: Project): Project | null => {
+      const index = this.projects.findIndex(
+         (projects) => projects.id === updatedProject.id,
+      )
+
+      if (index !== -1) {
+         const project: Project = {
+            ...updatedProject,
+            startDate: formatDate(updatedProject.startDate),
+            endDate: formatDate(updatedProject.endDate),
+         }
+
+         this.projects[index] = this.mapToProjectData(project)
+         return this.mapToProject(this.projects[index])
+      }
+
+      return null
    }
 
    public create = (dto: CreateProjectDto) => {
@@ -107,6 +132,11 @@ class ProjectStore {
 
       this.projects.push(project)
       return this.mapToProject(project)
+   }
+
+   public delete = (id: string) => {
+      this.projects = this.projects.filter((project) => project.id !== id)
+      taskStore.removeNonexistent(id)
    }
 
    public removeNonexistentPositionId = (executorId: string) => {
