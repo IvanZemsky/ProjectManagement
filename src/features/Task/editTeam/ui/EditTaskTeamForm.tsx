@@ -1,5 +1,6 @@
 import { Executor, executorStore } from "@/entities/Executor"
 import { TeamList } from "@/entities/Executor"
+import { projectStore } from "@/entities/Project"
 import { Task, taskStore } from "@/entities/Task"
 import {
    Button,
@@ -12,6 +13,7 @@ import {
    Typography,
 } from "@mui/material"
 import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 
 type Props = {
    taskId: string
@@ -20,11 +22,14 @@ type Props = {
 
 export const EditTaskTeamForm = ({ taskId, setEditedTask }: Props) => {
    const [isSaved, setIsSaved] = useState(false)
+   
+   const {projectId} = useParams()
 
    const task = taskStore.getById(taskId)
    const executors = executorStore.get()
+   const project = projectStore.getById(projectId as string)
 
-   if (!task || !executors) {
+   if (!task || !executors || !project) {
       return <Typography>Error</Typography>
    }
 
@@ -47,7 +52,7 @@ export const EditTaskTeamForm = ({ taskId, setEditedTask }: Props) => {
    const availableExecutors = executors.data.filter(
       (executor) =>
          !team.some((member) => member.id === executor.id) &&
-         executor.id !== task.assignee?.id,
+         executor.id !== task.assignee?.id && executor.id !== project.lead?.id,
    )
 
    useEffect(() => {

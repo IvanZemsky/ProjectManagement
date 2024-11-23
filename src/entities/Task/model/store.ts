@@ -61,27 +61,15 @@ class TaskStore {
       return { data: paginated.map(this.mapToTask), totalCount }
    }
 
-   updateOne = (taskId: string, dto: UpdateTaskDto): Task | null => {
-      const updatedTaskData = this.tasks.find((task) => task.id === taskId)
-
-      if (updatedTaskData) {
-         Object.assign(updatedTaskData, dto, { assigneeId: dto.assigneeId })
-
-         return this.mapToTask(updatedTaskData)
-      }
-
-      return null
-   }
-
    update = (updatedTask: Task): Task | null => {
-      const index = this.tasks.findIndex((task) => task.id === updatedTask.id)
+      const team = updatedTask.team.filter(executorId => executorId !== updatedTask.assignee?.id)
+      const taskToSave = this.mapToTaskData({...updatedTask, team})
 
-      if (index !== -1) {
-         this.tasks[index] = this.mapToTaskData(updatedTask)
-         return this.mapToTask(this.tasks[index])
-      }
+      this.tasks = this.tasks.map((task) =>
+         task.id === updatedTask.id ? taskToSave : task,
+      )
 
-      return null
+      return updatedTask
    }
 
    create = (dto: CreateTaskDto): Task => {

@@ -72,16 +72,13 @@ class ExecutorStore {
    }
 
    update = (updatedExecutor: Executor): Executor | null => {
-      const index = this.executors.findIndex(
-         (executor) => executor.id === updatedExecutor.id,
+      this.executors = this.executors.map((executor) =>
+         executor.id === updatedExecutor.id
+            ? this.mapToExecutorData(updatedExecutor)
+            : executor,
       )
 
-      if (index !== -1) {
-         this.executors[index] = this.mapToExecutorData(updatedExecutor)
-         return this.mapToExecutor(this.executors[index])
-      }
-
-      return null
+      return updatedExecutor
    }
 
    public create = (dto: CreateExecutorDto): Executor | null => {
@@ -106,11 +103,10 @@ class ExecutorStore {
    }
 
    public removeNonexistentPositionId = (positionId: string) => {
-      const updatedExecutors = this.executors.map((executor) => ({
+      this.executors.map((executor) => ({
          ...executor,
          positionId: executor.positionId === positionId ? null : executor.positionId,
       }))
-      this.executors = [...updatedExecutors]
    }
 
    private autosaveState = () => {

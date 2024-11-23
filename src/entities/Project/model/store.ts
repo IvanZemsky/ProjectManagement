@@ -59,8 +59,9 @@ class ProjectStore {
    public getTeam = (projectId: string) => {
       const tasks = taskStore.getByProjectId(projectId)
       const executors = executorStore.get()
+      const project = this.getById(projectId)
 
-      if (!executors) {
+      if (!executors || !project) {
          return null
       }
 
@@ -68,7 +69,7 @@ class ProjectStore {
       const tasksAssignees: string[] = tasks
          .map((task) => task.assignee?.id)
          .filter((value) => value !== undefined)
-      const tasksTeam = [...tasksExecutors, ...tasksAssignees]
+      const tasksTeam = [...tasksExecutors, ...tasksAssignees, project.lead?.id]
 
       const team = executors.data.filter((executor) =>
          tasksTeam.some((taskExecutor) => executor.id === taskExecutor),
@@ -99,22 +100,17 @@ class ProjectStore {
    }
 
    update = (updatedProject: Project): Project | null => {
-      const index = this.projects.findIndex(
-         (projects) => projects.id === updatedProject.id,
+      const projectToSave: ProjectData = this.mapToProjectData({
+         ...updatedProject,
+         startDate: formatDate(updatedProject.startDate),
+         endDate: formatDate(updatedProject.endDate),
+      })
+
+      this.projects = this.projects.map((project) =>
+         project.id === updatedProject.id ? projectToSave : project,
       )
 
-      if (index !== -1) {
-         const project: Project = {
-            ...updatedProject,
-            startDate: formatDate(updatedProject.startDate),
-            endDate: formatDate(updatedProject.endDate),
-         }
-
-         this.projects[index] = this.mapToProjectData(project)
-         return this.mapToProject(this.projects[index])
-      }
-
-      return null
+      return updatedProject
    }
 
    public create = (dto: CreateProjectDto) => {

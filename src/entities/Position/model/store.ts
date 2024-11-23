@@ -32,17 +32,11 @@ class PositionStore {
    }
 
    public update = (updatedPosition: Position): Position | null => {
-      const index = this.positions.findIndex(
-         (position) => position.id === updatedPosition.id,
+      this.positions = this.positions.map((position) =>
+         position.id === updatedPosition.id ? updatedPosition : position,
       )
 
-      if (index !== -1) {
-         this.positions[index] = updatedPosition
-         this.positions = [...this.positions] // for correct state updating
-         return updatedPosition
-      }
-
-      return null
+      return updatedPosition
    }
 
    public create = (dto: CreatePositionDto): Position | null => {

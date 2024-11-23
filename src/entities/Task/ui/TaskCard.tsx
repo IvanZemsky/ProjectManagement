@@ -41,7 +41,7 @@ export const TaskCard = forwardRef(
          >
             <CardContent>
                <Stack spacing={1}>
-                  <Typography sx={{ fontWeight: "600" }}>{name}</Typography>
+                  <Typography sx={{ fontWeight: "500" }}>{name}</Typography>
                   <Stack
                      direction="row"
                      spacing={1}

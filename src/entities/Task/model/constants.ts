@@ -10,8 +10,8 @@ export const tasksColumns: TaskColumnData[] = [
       label: "In progress",
    },
    {
-      id: "code review",
-      label: "Code review",
+      id: "review",
+      label: "Review",
    },
    {
       id: "done",
