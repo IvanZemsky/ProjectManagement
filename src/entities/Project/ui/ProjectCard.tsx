@@ -1,8 +1,8 @@
+import { setPath } from "@/shared/lib"
+import { Routes } from "@/shared/model"
+import { theme } from "@/shared/theme"
 import { Card, CardContent, Stack, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
-import { Routes } from "@/shared/constants"
-import { setPath } from "@/shared/lib"
-import { theme } from "@/shared/theme/theme"
 import { Project } from "../model/types"
 
 type Props = {

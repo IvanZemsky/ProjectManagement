@@ -1,9 +1,9 @@
-import { Executor } from "../model/types"
-import { Routes } from "@/shared/constants"
 import { setPath } from "@/shared/lib"
-import { Stack, Tooltip, Chip, Avatar } from "@mui/material"
+import { Routes } from "@/shared/model"
+import { Avatar, Chip, Stack, Tooltip } from "@mui/material"
 import { ReactNode } from "react"
 import { Link } from "react-router-dom"
+import { Executor } from "../model/types"
 
 type Props = {
    team: Executor[]
@@ -14,7 +14,7 @@ type Props = {
 }
 
 export const TeamList = ({ team, excludeId, onDelete, editBtn, links = true }: Props) => {
-   const filteredTeam = team.filter(executor => executor.id !== excludeId)
+   const filteredTeam = team.filter((executor) => executor.id !== excludeId)
 
    return (
       <Stack direction="row" sx={{ flexWrap: "wrap", alignItems: "flex-start", gap: 1 }}>

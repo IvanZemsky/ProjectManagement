@@ -1,7 +1,7 @@
 import { Executor } from "@/entities/Executor/@x/project"
-import { Routes } from "@/shared/constants"
 import { setPath } from "@/shared/lib"
-import { Stack, Typography, Tooltip, Chip, Avatar } from "@mui/material"
+import { Routes } from "@/shared/model"
+import { Avatar, Chip, Stack, Tooltip, Typography } from "@mui/material"
 import { Link } from "react-router-dom"
 
 type Props = {

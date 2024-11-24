@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction, type MouseEvent } from "react"
 
+import { AppStorage, useModal } from "@/shared/lib"
+import { Routes } from "@/shared/model"
+import { BtnLink, TutorialBtn } from "@/shared/ui"
+import { PageHeader } from "@/widgets/PageHeader"
 import ViewListIcon from "@mui/icons-material/ViewList"
 import ViewModuleIcon from "@mui/icons-material/ViewModule"
-import { Routes } from "@/shared/constants"
-import { PageHeader } from "@/widgets/PageHeader"
-import { AppStorage, useModal } from "@/shared/lib"
-import { BtnLink, TutorialBtn } from "@/shared/ui"
 import { ToggleButton, ToggleButtonGroup } from "@mui/material"
 
 import { View } from "../model/types"

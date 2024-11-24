@@ -1,4 +1,4 @@
-import { theme } from "@/shared/theme/theme"
+import { theme } from "@/shared/theme"
 import { Stack, Typography } from "@mui/material"
 import { TaskColumnData } from "../model/types"
 import { useDroppable } from "@dnd-kit/core"

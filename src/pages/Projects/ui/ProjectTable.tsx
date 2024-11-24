@@ -1,6 +1,6 @@
 import { projectStore } from "@/entities/Project"
 import { useTablePagination } from "@/shared/lib"
-import { theme } from "@/shared/theme/theme"
+import { theme } from "@/shared/theme"
 import { TableCellLink } from "@/shared/ui"
 import {
    Paper,

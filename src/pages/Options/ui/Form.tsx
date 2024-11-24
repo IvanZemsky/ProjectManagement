@@ -1,5 +1,4 @@
-import { defaultOptions, optionsStorage } from "@/shared/model"
-import { Options } from "@/shared/model/types"
+import { defaultOptions, optionsStorage, Options} from "@/shared/model"
 import {
    Button,
    Checkbox,
@@ -21,7 +20,7 @@ export const Form = () => {
       defaultValues: options,
    })
 
-   const { register, formState, control, handleSubmit, getValues, reset } = form
+   const { formState, control, handleSubmit, getValues, reset } = form
    const [isSaved, setIsSaved] = useState(false)
 
    useEffect(() => {

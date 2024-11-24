@@ -2,7 +2,7 @@ import { Stack } from "@mui/material"
 import { blue } from "@mui/material/colors"
 import { NavLink } from "@/shared/ui"
 import { theme } from "@/shared/theme"
-import { navLinks } from "@/shared/constants"
+import { navLinks } from "@/shared/model"
 
 export const Navbar = () => {
    return (

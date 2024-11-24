@@ -1,6 +1,6 @@
 import { executorStore } from "@/entities/Executor"
 import { CreateProjectDto, projectStore } from "@/entities/Project"
-import { Routes, SpecialValues } from "@/shared/constants"
+import { Routes, SpecialValues } from "@/shared/model"
 import { setPath } from "@/shared/lib"
 import {
    Button,

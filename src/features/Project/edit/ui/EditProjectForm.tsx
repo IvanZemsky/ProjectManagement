@@ -1,6 +1,6 @@
 import { executorStore } from "@/entities/Executor"
 import { Project, projectStore } from "@/entities/Project"
-import { SpecialValues } from "@/shared/constants"
+import { SpecialValues } from "@/shared/model"
 import {
    Button,
    FormControl,

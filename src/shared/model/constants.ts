@@ -1,3 +1,7 @@
+export enum SpecialValues {
+   Unspecified = "unspecified",
+}
+
 export enum Routes {
    Home = '/',
    Projects = 'projects',

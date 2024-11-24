@@ -1,6 +1,6 @@
 import { executorStore } from "@/entities/Executor"
 import { CreateTaskDto, tasksColumns, TaskStatus, taskStore } from "@/entities/Task"
-import { Routes, SpecialValues } from "@/shared/constants"
+import { Routes, SpecialValues } from "@/shared/model"
 import { setPath } from "@/shared/lib"
 import {
    Button,

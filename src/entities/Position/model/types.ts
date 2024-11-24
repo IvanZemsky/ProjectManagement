@@ -4,6 +4,5 @@ export type Position = {
 }
 
 export type CreatePositionDto = {
-   id: string
    name: string
 }

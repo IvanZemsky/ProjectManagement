@@ -5,7 +5,7 @@ import { Header } from "@/widgets/Header"
 import { Suspense, useMemo, useRef } from "react"
 import { Loader } from "@/shared/ui"
 import { PageBreadcrumbs } from "@/shared/ui"
-import { theme } from "@/shared/theme/theme"
+import { theme } from "@/shared/theme"
 import { optionsStorage, defaultOptions } from "@/shared/model"
 
 export const RootLayout = () => {

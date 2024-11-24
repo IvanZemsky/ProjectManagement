@@ -1,15 +1,15 @@
 import { projectStore } from "@/entities/Project"
+import { DeleteProjectBtn } from "@/features/Project/delete"
+import { EditProjectBtn } from "@/features/Project/edit"
+import { setPath } from "@/shared/lib"
+import { Routes } from "@/shared/model"
 import { BtnLink } from "@/shared/ui"
 import { PageHeader } from "@/widgets/PageHeader"
 import { Stack, Typography } from "@mui/material"
+import { observer } from "mobx-react-lite"
 import { useParams } from "react-router-dom"
 import { Info } from "./Info"
 import { ProjectTasks } from "./ProjectTasks"
-import { EditProjectBtn } from "@/features/Project/edit"
-import { DeleteProjectBtn } from "@/features/Project/delete"
-import { observer } from "mobx-react-lite"
-import { setPath } from "@/shared/lib"
-import { Routes } from "@/shared/constants"
 
 type Props = {}
 export const Project = observer(({}: Props) => {

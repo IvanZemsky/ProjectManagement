@@ -1,4 +1,4 @@
-import { theme } from "@/shared/theme/theme";
+import { theme } from "@/shared/theme";
 import { Link, LinkProps } from "@mui/material";
 import {Link as RouterLink} from 'react-router-dom'
 

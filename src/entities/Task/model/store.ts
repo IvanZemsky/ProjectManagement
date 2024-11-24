@@ -1,10 +1,9 @@
 import { autorun, makeAutoObservable } from "mobx"
 import { v4 as uuidv4 } from "uuid"
-import { CreateTaskDto, Task, TaskData, UpdateTaskDto } from "./types"
+import { CreateTaskDto, Task, TaskData } from "./types"
 import { executorStore } from "@/entities/Executor/@x/task"
-import { SpecialValues } from "@/shared/constants"
 import { AppStorage } from "@/shared/lib"
-import { GetData } from "@/shared/model"
+import { GetData, SpecialValues } from "@/shared/model"
 
 class TaskStore {
    tasks: TaskData[] = []

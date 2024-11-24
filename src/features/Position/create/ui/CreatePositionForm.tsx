@@ -1,6 +1,6 @@
 import { CreatePositionDto, positionStore } from "@/entities/Position"
-import { Routes } from "@/shared/constants"
 import { setPath } from "@/shared/lib"
+import { Routes } from "@/shared/model"
 import { Button, Stack, TextField } from "@mui/material"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
@@ -10,7 +10,7 @@ type FormValues = {
 }
 
 type Props = {}
-export const Form = ({}: Props) => {
+export const CreatePositionForm = ({}: Props) => {
    const form = useForm<FormValues>({
       defaultValues: {
          name: "",

@@ -1,6 +1,6 @@
 import { executorStore } from "@/entities/Executor"
 import { Task, tasksColumns, taskStore, TaskStatus } from "@/entities/Task"
-import { SpecialValues } from "@/shared/constants"
+import { SpecialValues } from "@/shared/model"
 import {
    Button,
    FormControl,

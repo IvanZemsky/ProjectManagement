@@ -1,11 +1,11 @@
-import { Routes } from "@/shared/constants"
-import { theme } from "@/shared/theme/theme"
-import { AppBar, Toolbar, Link, Stack, SxProps } from "@mui/material"
-import { Link as RouterLink } from "react-router-dom"
+import { setPath } from "@/shared/lib"
+import { Routes } from "@/shared/model"
+import { theme } from "@/shared/theme"
+import { IconBtnLink } from "@/shared/ui"
 import GitHubIcon from "@mui/icons-material/GitHub"
 import SettingsIcon from "@mui/icons-material/Settings"
-import { IconBtnLink } from "@/shared/ui"
-import { setPath } from "@/shared/lib"
+import { AppBar, Link, Stack, SxProps, Toolbar } from "@mui/material"
+import { Link as RouterLink } from "react-router-dom"
 import { OpenMobileMenuBtn } from "./OpenMobileMenuBtn"
 
 const linkSx: SxProps = {

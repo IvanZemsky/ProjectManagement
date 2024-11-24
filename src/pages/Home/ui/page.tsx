@@ -1,5 +1,5 @@
+import { Routes } from "@/shared/model"
 import { BtnLink } from "@/shared/ui"
-import { Routes } from "@/shared/constants"
 import { Stack, Typography } from "@mui/material"
 
 import { styles } from "../model/styles"

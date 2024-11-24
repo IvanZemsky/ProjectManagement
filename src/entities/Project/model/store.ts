@@ -1,7 +1,7 @@
 import { autorun, makeAutoObservable } from "mobx"
 import { v4 as uuidv4 } from "uuid"
 import { CreateProjectDto, Project, ProjectData } from "./types"
-import { SpecialValues } from "@/shared/constants"
+import { SpecialValues } from "@/shared/model"
 import { AppStorage, formatDate } from "@/shared/lib"
 import { GetData } from "@/shared/model"
 import { executorStore } from "@/entities/Executor/@x/project"

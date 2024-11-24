@@ -1,8 +1,8 @@
-import { TutorialBtn, BtnLink } from "@/shared/ui"
+import { useModal } from "@/shared/lib"
+import { Routes } from "@/shared/model"
+import { BtnLink, TutorialBtn } from "@/shared/ui"
 import { PageHeader } from "@/widgets/PageHeader"
 import { DescModal } from "./DescModal"
-import { useModal } from "@/shared/lib"
-import { Routes } from "@/shared/constants"
 
 const { Create } = Routes
 

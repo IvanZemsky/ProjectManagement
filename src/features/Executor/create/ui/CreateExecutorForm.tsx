@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form"
 
 import { CreateExecutorDto, executorStore } from "@/entities/Executor"
 import { positionStore } from "@/entities/Position"
-import { Routes, SpecialValues } from "@/shared/constants"
+import { Routes, SpecialValues } from "@/shared/model"
 import { setPath } from "@/shared/lib"
 import { useMemo } from "react"
 import { useNavigate } from "react-router-dom"

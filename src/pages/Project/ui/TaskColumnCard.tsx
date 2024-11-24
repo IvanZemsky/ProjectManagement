@@ -1,9 +1,9 @@
 import { Task, TaskCard } from "@/entities/Task"
-import { EditTaskBtn } from "@/features/Task/edit/ui/EditTaskBtn"
+import { EditTaskBtn } from "@/features/Task/edit"
 import { useDraggable } from "@dnd-kit/core"
 import { useState, PointerEvent } from "react"
 import { getTransformSx } from "../lib/helpers/getTransformSx"
-import { DeleteTaskBtn } from "@/features/Task/delete/ui/DeleteTaskBtn"
+import { DeleteTaskBtn } from "@/features/Task/delete"
 import { useMediaQuery } from "@mui/material"
 import { theme } from "@/shared/theme"
 

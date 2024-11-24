@@ -3,7 +3,7 @@ import { positionStore } from "@/entities/Position"
 import { DeletePositionBtn } from "@/features/Position/delete"
 import { EditPositionBtn } from "@/features/Position/edit"
 import { useTablePagination } from "@/shared/lib"
-import { theme } from "@/shared/theme/theme"
+import { theme } from "@/shared/theme"
 import {
    Paper,
    Stack,

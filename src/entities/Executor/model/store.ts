@@ -1,4 +1,4 @@
-import { SpecialValues } from "@/shared/constants"
+import { SpecialValues } from "@/shared/model"
 import { GetData } from "@/shared/model"
 import { autorun, makeAutoObservable } from "mobx"
 import { Executor, CreateExecutorDto, ExecutorData } from "./types"

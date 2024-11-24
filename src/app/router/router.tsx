@@ -1,9 +1,8 @@
 import { createHashRouter } from "react-router-dom"
 import { RootLayout } from "../layouts/RootLayout"
-import { Routes } from "@/shared/constants"
+import { Routes } from "@/shared/model"
 import { setPath } from "@/shared/lib"
 import { NotFoundPage } from "@/pages/NotFoundPage"
-import { Executors } from "@/pages/Executors/ui/page"
 import {
    CreateExecutor,
    CreatePosition,
@@ -17,6 +16,7 @@ import {
    Task,
    Tasks,
    Executor,
+   Executors
 } from "./lazyPages"
 
 export const router = createHashRouter([

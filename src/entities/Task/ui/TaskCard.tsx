@@ -1,10 +1,10 @@
-import { Routes } from "@/shared/constants"
+import { setPath } from "@/shared/lib"
+import { Routes } from "@/shared/model"
 import { BtnLink } from "@/shared/ui"
 import GroupIcon from "@mui/icons-material/Group"
 import { Card, CardContent, CardProps, Chip, Stack, Typography } from "@mui/material"
-import { ReactNode, PointerEvent, forwardRef, Ref } from "react"
+import { forwardRef, PointerEvent, ReactNode, Ref } from "react"
 import { Task } from "../model/types"
-import { setPath } from "@/shared/lib"
 
 type Props = {
    data: Task

@@ -1,4 +1,4 @@
-import { navLinks } from "@/shared/constants"
+import { navLinks } from "@/shared/model"
 import { useModal } from "@/shared/lib"
 import { theme } from "@/shared/theme"
 import { BaseModal, NavLink } from "@/shared/ui"

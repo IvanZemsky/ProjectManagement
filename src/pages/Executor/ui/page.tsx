@@ -1,14 +1,14 @@
 import { executorStore } from "@/entities/Executor"
+import { DeleteExecutorBtn } from "@/features/Executor/delete"
+import { EditExecutorBtn } from "@/features/Executor/edit"
+import { setPath } from "@/shared/lib"
+import { Routes } from "@/shared/model"
 import { PageHeader } from "@/widgets/PageHeader"
 import { Box, Stack, Typography } from "@mui/material"
-import { useParams } from "react-router-dom"
-import { ExecutorTaskList } from "./ExecutorTaskList"
-import { ExecutorProjectList } from "./ExecutorProjectList"
-import { EditExecutorBtn } from "@/features/Executor/edit"
-import { DeleteExecutorBtn } from "@/features/Executor/delete"
 import { observer } from "mobx-react-lite"
-import { setPath } from "@/shared/lib"
-import { Routes } from "@/shared/constants"
+import { useParams } from "react-router-dom"
+import { ExecutorProjectList } from "./ExecutorProjectList"
+import { ExecutorTaskList } from "./ExecutorTaskList"
 
 export const Executor = observer(() => {
    const { executorId } = useParams()

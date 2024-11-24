@@ -1,6 +1,6 @@
 import { Executor, executorStore } from "@/entities/Executor"
 import { positionStore } from "@/entities/Position"
-import { SpecialValues } from "@/shared/constants"
+import { SpecialValues } from "@/shared/model"
 import {
    Button,
    FormControl,
@@ -55,8 +55,6 @@ export const EditExecutorForm = ({ executorId, setEditedExecutor }: Props) => {
          name: newValues.name,
          position: positionStore.getById(newValues.position),
       }
-
-      console.log(newValues, newTask)
 
       setIsSaved(true)
       setEditedExecutor(newTask)
