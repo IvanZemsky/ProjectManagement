@@ -102,7 +102,7 @@ export const EditProjectForm = ({ projectId, setEditedProject }: Props) => {
                id="project-name"
                label="Name"
                variant="filled"
-               sx={{ alignSelf: "flex-start", maxWidth: 400, width: "100%" }}
+               sx={{ alignSelf: "flex-start", width: "100%" }}
                size="small"
                error={!!errors.name}
                helperText={errors.name?.message}
@@ -115,7 +115,7 @@ export const EditProjectForm = ({ projectId, setEditedProject }: Props) => {
                id="project-description"
                label="Description"
                variant="filled"
-               sx={{ alignSelf: "flex-start", maxWidth: 400, width: "100%" }}
+               sx={{ alignSelf: "flex-start", width: "100%" }}
                size="small"
                multiline
                minRows={3}
@@ -134,7 +134,7 @@ export const EditProjectForm = ({ projectId, setEditedProject }: Props) => {
                         labelId="project-lead-label"
                         label="Lead"
                         {...field}
-                        sx={{ alignSelf: "flex-start", maxWidth: 400, width: "100%" }}
+                        sx={{ alignSelf: "flex-start",  width: "100%" }}
                      >
                         <MenuItem value={SpecialValues.Unspecified} selected>
                            Unspecified
@@ -155,7 +155,7 @@ export const EditProjectForm = ({ projectId, setEditedProject }: Props) => {
                label="Start date"
                slotProps={{ inputLabel: { shrink: true } }}
                variant="filled"
-               sx={{ alignSelf: "flex-start", maxWidth: 400, width: "100%" }}
+               sx={{ alignSelf: "flex-start", width: "100%" }}
                size="small"
                type="date"
                error={!!errors.startDate}
@@ -170,7 +170,7 @@ export const EditProjectForm = ({ projectId, setEditedProject }: Props) => {
                label="End date"
                slotProps={{ inputLabel: { shrink: true } }}
                variant="filled"
-               sx={{ alignSelf: "flex-start", maxWidth: 400, width: "100%" }}
+               sx={{ alignSelf: "flex-start", width: "100%" }}
                size="small"
                type="date"
                error={!!errors.endDate}

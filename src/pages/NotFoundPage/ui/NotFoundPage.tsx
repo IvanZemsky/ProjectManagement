@@ -1,13 +1,20 @@
-import { Container, Typography } from "@mui/material";
+import { Routes } from "@/shared/constants"
+import { BtnLink } from "@/shared/ui"
+import { Stack, Typography } from "@mui/material"
 
-type Props = {
- 
-}
+type Props = {}
 
 export const NotFoundPage = ({}: Props) => {
-   return ( 
-      <Container>
-         <Typography>Not found</Typography>
-      </Container>
-   );
+   return (
+      <Stack
+         sx={{ alignItems: "center", justifyContent: "center", p: 2, height: "100dvh" }}
+      >
+         <Stack spacing={1}>
+            <Typography sx={{ fontSize: 30 }}>Page not found</Typography>
+            <BtnLink to={Routes.Home} variant="contained">
+               Home
+            </BtnLink>
+         </Stack>
+      </Stack>
+   )
 }

@@ -1,33 +1,21 @@
-import { setPath, useModal } from "@/shared/lib"
-import { IconButton, Tooltip } from "@mui/material"
+import { useDeleteDialog } from "@/shared/lib"
+import { Button, IconButton, Tooltip } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { PointerEventHandler } from "react"
-import { DeleteTaskDialog } from "./DeleteTaskDialog"
-import { useNavigate } from "react-router-dom"
-import { Routes } from "@/shared/constants"
+import { BaseDialog } from "@/shared/ui"
+import { taskStore } from "@/entities/Task"
 
 type Props = {
    id: string
    name: string
-   projectId?: string
    onPointerDown?: PointerEventHandler<HTMLButtonElement>
-   redirectOnDelete?: boolean
+   redirectOnDelete?: string
 }
-export const DeleteTaskBtn = ({
-   id,
-   projectId,
-   name,
-   onPointerDown,
-   redirectOnDelete = false,
-}: Props) => {
-   const navigate = useNavigate()
-
-   const redirect =
-      redirectOnDelete && projectId
-         ? () => navigate(setPath("", Routes.Projects, projectId))
-         : null
-
-   const { openModal, handleModalOpen, handleModalClose } = useModal(false)
+export const DeleteTaskBtn = ({ id, name, onPointerDown, redirectOnDelete }: Props) => {
+   const { dialog, handleDeleteClick } = useDeleteDialog(
+      () => taskStore.delete(id),
+      redirectOnDelete,
+   )
 
    return (
       <>
@@ -35,17 +23,20 @@ export const DeleteTaskBtn = ({
             <IconButton
                size="small"
                onPointerDown={onPointerDown}
-               onClick={handleModalOpen}
+               onClick={dialog.handleModalOpen}
             >
                <DeleteIcon />
             </IconButton>
          </Tooltip>
-         <DeleteTaskDialog
-            taskId={id}
-            taskName={name}
-            open={openModal}
-            onClose={handleModalClose}
-            onDelete={redirect}
+         <BaseDialog
+            title={`Are you sure you want to delete task '${name}'?`}
+            open={dialog.openModal}
+            onClose={dialog.handleModalClose}
+            actionButtons={
+               <Button color="sensitive" variant="contained" onClick={handleDeleteClick}>
+                  Delete
+               </Button>
+            }
          />
       </>
    )

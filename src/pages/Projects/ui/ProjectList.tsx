@@ -1,6 +1,6 @@
 import { ProjectCard, projectStore } from "@/entities/Project"
-import { AutoGrid, PageBtns } from "@/shared/ui"
-import { Stack, Typography } from "@mui/material"
+import { AutoGrid, BaseList } from "@/shared/ui"
+import { Typography } from "@mui/material"
 import { useState } from "react"
 
 const limit = 12
@@ -16,18 +16,17 @@ export const ProjectList = ({}: Props) => {
    }
 
    return (
-      <Stack spacing={2} sx={{ flexGrow: 1, justifyContent: "space-between" }}>
-         <AutoGrid minItemWidth={"300px"} spacing={2}>
+      <BaseList
+         totalCount={projects.totalCount}
+         limit={limit}
+         currentPage={page}
+         setPage={setPage}
+      >
+         <AutoGrid minItemWidth="300px" spacing={2}>
             {projects?.data.map((project) => (
                <ProjectCard key={project.id} data={project} />
             ))}
          </AutoGrid>
-         <PageBtns
-            itemsCount={projects.totalCount}
-            limit={limit}
-            currentPage={page}
-            setPage={setPage}
-         />
-      </Stack>
+      </BaseList>
    )
 }

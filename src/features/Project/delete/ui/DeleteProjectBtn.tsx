@@ -1,35 +1,37 @@
-import { setPath, useModal } from "@/shared/lib"
-import { IconButton, Tooltip } from "@mui/material"
+import { useDeleteDialog } from "@/shared/lib"
+import { Button, IconButton, Tooltip } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
-import { DeleteProjectDialog } from "./DeleteProjectDialog"
-import { Routes } from "@/shared/constants"
-import { useNavigate } from "react-router-dom"
+import { projectStore } from "@/entities/Project"
+import { BaseDialog } from "@/shared/ui"
 
 type Props = {
    id: string
    name: string
-   redirectOnDelete?: boolean
+   redirectOnDelete?: string
 }
-export const DeleteProjectBtn = ({ id, name, redirectOnDelete = false }: Props) => {
-   const navigate = useNavigate()
-
-   const redirect = redirectOnDelete ? () => navigate(setPath("", Routes.Projects)) : null
-
-   const { openModal, handleModalOpen, handleModalClose } = useModal(false)
+export const DeleteProjectBtn = ({ id, name, redirectOnDelete }: Props) => {
+   const { dialog, handleDeleteClick } = useDeleteDialog(
+      () => projectStore.delete(id),
+      redirectOnDelete
+   )
 
    return (
       <>
          <Tooltip title="Delete">
-            <IconButton size="small" onClick={handleModalOpen}>
+            <IconButton size="small" onClick={dialog.handleModalOpen}>
                <DeleteIcon />
             </IconButton>
          </Tooltip>
-         <DeleteProjectDialog
-            projectId={id}
-            projectName={name}
-            open={openModal}
-            onClose={handleModalClose}
-            onDelete={redirect}
+
+         <BaseDialog
+            title={`Are you sure you want to delete project '${name}'?`}
+            open={dialog.openModal}
+            onClose={dialog.handleModalClose}
+            actionButtons={
+               <Button color="sensitive" variant="contained" onClick={handleDeleteClick}>
+                  Delete
+               </Button>
+            }
          />
       </>
    )

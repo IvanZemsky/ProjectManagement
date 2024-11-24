@@ -1,13 +1,15 @@
 import { executorStore } from "@/entities/Executor"
 import { taskStore } from "@/entities/Task"
-import { DeleteTaskBtn } from "@/features/Task/delete/ui/DeleteTaskBtn"
-import { EditTaskBtn } from "@/features/Task/edit/ui/EditTaskBtn"
+import { DeleteTaskBtn } from "@/features/Task/delete"
+import { EditTaskBtn } from "@/features/Task/edit"
 import { PageHeader } from "@/widgets/PageHeader"
 import { Stack, Typography } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { useParams } from "react-router-dom"
 import { TaskTeamList } from "./TaskTeamList"
 import { Assignee } from "./Assignee"
+import { setPath } from "@/shared/lib"
+import { Routes } from "@/shared/constants"
 
 export const TaskPage = observer(() => {
    const { projectId, taskId } = useParams()
@@ -27,13 +29,12 @@ export const TaskPage = observer(() => {
             <DeleteTaskBtn
                id={task.id}
                name={task.name}
-               projectId={projectId}
-               redirectOnDelete
+               redirectOnDelete={setPath("", Routes.Projects, projectId)}
             />
          </PageHeader>
          <Typography>{task.description || "No description provided"}</Typography>
-         
-         <Assignee assignee={task.assignee}/>
+
+         <Assignee assignee={task.assignee} />
 
          <TaskTeamList taskId={task.id} team={team} />
       </Stack>

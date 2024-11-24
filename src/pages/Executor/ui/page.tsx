@@ -7,6 +7,8 @@ import { ExecutorProjectList } from "./ExecutorProjectList"
 import { EditExecutorBtn } from "@/features/Executor/edit"
 import { DeleteExecutorBtn } from "@/features/Executor/delete"
 import { observer } from "mobx-react-lite"
+import { setPath } from "@/shared/lib"
+import { Routes } from "@/shared/constants"
 
 export const Executor = observer(() => {
    const { executorId } = useParams()
@@ -22,7 +24,11 @@ export const Executor = observer(() => {
          <Box>
             <PageHeader title={executor.name}>
                <EditExecutorBtn id={executorId} name={executor.name} />
-               <DeleteExecutorBtn id={executorId} name={executor.name} redirectOnDelete/>
+               <DeleteExecutorBtn
+                  id={executorId}
+                  name={executor.name}
+                  redirectOnDelete={setPath("", Routes.Executors)}
+               />
             </PageHeader>
             <Typography>{executor.position?.name || "Unspecified position"}</Typography>
          </Box>

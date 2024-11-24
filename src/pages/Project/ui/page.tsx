@@ -8,6 +8,8 @@ import { ProjectTasks } from "./ProjectTasks"
 import { EditProjectBtn } from "@/features/Project/edit"
 import { DeleteProjectBtn } from "@/features/Project/delete"
 import { observer } from "mobx-react-lite"
+import { setPath } from "@/shared/lib"
+import { Routes } from "@/shared/constants"
 
 type Props = {}
 export const Project = observer(({}: Props) => {
@@ -26,7 +28,11 @@ export const Project = observer(({}: Props) => {
                Add task
             </BtnLink>
             <EditProjectBtn id={projectId} name={projectData.name} />
-            <DeleteProjectBtn id={projectId} name={projectData.name} redirectOnDelete />
+            <DeleteProjectBtn
+               id={projectId}
+               name={projectData.name}
+               redirectOnDelete={setPath("", Routes.Projects)}
+            />
          </PageHeader>
 
          <Info projectId={projectId} />

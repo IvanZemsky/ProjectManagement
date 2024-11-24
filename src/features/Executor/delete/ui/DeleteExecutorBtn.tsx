@@ -1,48 +1,37 @@
-import { setPath, useModal } from "@/shared/lib"
-import { IconButton, Tooltip } from "@mui/material"
+import { useDeleteDialog } from "@/shared/lib"
+import { Button, IconButton, Tooltip } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
-import { PointerEventHandler } from "react"
-import { DeleteExecutorDialog } from "./DeleteExecutorDialog"
-import { Routes } from "@/shared/constants"
-import { useNavigate } from "react-router-dom"
+import { BaseDialog } from "@/shared/ui"
+import { executorStore } from "@/entities/Executor"
 
 type Props = {
    id: string
    name: string
-   onPointerDown?: PointerEventHandler<HTMLButtonElement>
-   redirectOnDelete?: boolean
+   redirectOnDelete?: string
 }
-export const DeleteExecutorBtn = ({
-   id,
-   name,
-   onPointerDown,
-   redirectOnDelete = false,
-}: Props) => {
-   const navigate = useNavigate()
-
-   const redirect = redirectOnDelete
-      ? () => navigate(setPath("", Routes.Executors))
-      : null
-
-   const { openModal, handleModalOpen, handleModalClose } = useModal(false)
+export const DeleteExecutorBtn = ({ id, name, redirectOnDelete }: Props) => {
+   const { dialog, handleDeleteClick } = useDeleteDialog(
+      () => executorStore.delete(id),
+      redirectOnDelete
+   )
 
    return (
       <>
          <Tooltip title="Delete">
-            <IconButton
-               size="small"
-               onPointerDown={onPointerDown}
-               onClick={handleModalOpen}
-            >
+            <IconButton size="small" onClick={dialog.handleModalOpen}>
                <DeleteIcon />
             </IconButton>
          </Tooltip>
-         <DeleteExecutorDialog
-            executorId={id}
-            executorName={name}
-            open={openModal}
-            onClose={handleModalClose}
-            onDelete={redirect}
+
+         <BaseDialog
+            title={`Are you sure you want to delete executor '${name}'?`}
+            open={dialog.openModal}
+            onClose={dialog.handleModalClose}
+            actionButtons={
+               <Button color="sensitive" variant="contained" onClick={handleDeleteClick}>
+                  Delete
+               </Button>
+            }
          />
       </>
    )

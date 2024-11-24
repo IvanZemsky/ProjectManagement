@@ -1,3 +1,5 @@
+export { BaseDialog } from "./BaseDialog";
+export { BaseList } from "./BaseList";
 export { TutorialBtn } from "./TutorialBtn";
 export { BaseModal } from "./BaseModal";
 export { AutoGrid } from "./AutoGrid";

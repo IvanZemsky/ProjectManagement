@@ -1,1 +1,1 @@
-export { EditTaskForm } from "./ui/EditTaskForm"
+export { EditTaskBtn } from "./ui/EditTaskBtn"
