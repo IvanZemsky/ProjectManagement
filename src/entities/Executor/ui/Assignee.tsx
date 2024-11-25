@@ -1,4 +1,4 @@
-import { Executor } from "@/entities/Executor/@x/project"
+import { Executor } from "@/entities/Executor/@x/Project"
 import { setPath } from "@/shared/lib"
 import { Routes } from "@/shared/model"
 import { Avatar, Chip, Stack, Tooltip, Typography } from "@mui/material"

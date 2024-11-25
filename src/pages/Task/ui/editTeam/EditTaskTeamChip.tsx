@@ -1,10 +1,10 @@
-import { Chip } from "@mui/material"
-import EditIcon from "@mui/icons-material/Edit"
-import { EditTaskTeamForm } from "./EditTaskTeamForm"
+import { Task, taskStore } from "@/entities/Task"
 import { useModal } from "@/shared/lib"
 import { BaseModal } from "@/shared/ui"
-import { Task, taskStore } from "@/entities/Task"
+import EditIcon from "@mui/icons-material/Edit"
+import { Chip } from "@mui/material"
 import { useState } from "react"
+import { EditTaskTeamForm } from "./EditTaskTeamForm"
 
 type Props = {
    taskId: string
@@ -22,7 +22,10 @@ export const EditTaskTeamChip = ({ taskId, onEditorClose }: Props) => {
       onEditorClose && onEditorClose()
    }
 
-   const { openModal, handleModalOpen, handleModalClose } = useModal(false, handleEditorClose)
+   const { openModal, handleModalOpen, handleModalClose } = useModal(
+      false,
+      handleEditorClose,
+   )
 
    return (
       <>
@@ -40,7 +43,7 @@ export const EditTaskTeamChip = ({ taskId, onEditorClose }: Props) => {
             open={openModal}
             onClose={handleModalClose}
          >
-            <EditTaskTeamForm taskId={taskId} setEditedTask={setEditedTask}/>
+            <EditTaskTeamForm taskId={taskId} setEditedTask={setEditedTask} />
          </BaseModal>
       </>
    )

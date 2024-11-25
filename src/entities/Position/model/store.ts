@@ -2,7 +2,7 @@ import { autorun, makeAutoObservable } from "mobx"
 import { CreatePositionDto, Position } from "./types"
 import { AppStorage } from "@/shared/lib"
 import { v4 as uuidv4 } from "uuid"
-import { executorStore } from "@/entities/Executor/@x/position"
+import { executorStore } from "@/entities/Executor/@x/Position"
 
 class PositionStore {
    positions: Position[] = []

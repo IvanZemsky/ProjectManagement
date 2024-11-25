@@ -1,7 +1,5 @@
 import { Executor, executorStore } from "@/entities/Executor"
 import { positionStore } from "@/entities/Position"
-import { DeletePositionBtn } from "@/features/Position/delete"
-import { EditPositionBtn } from "@/features/Position/edit"
 import { useTablePagination } from "@/shared/lib"
 import { theme } from "@/shared/theme"
 import {
@@ -17,6 +15,8 @@ import {
    Typography,
 } from "@mui/material"
 import { observer } from "mobx-react-lite"
+import { DeletePositionBtn } from "./deletePosition/DeletePositionBtn"
+import { EditPositionBtn } from "./editPosition/EditPositionBtn"
 
 const getExecutorsAmountByPosition = (
    executors: Executor[] | undefined,
@@ -31,12 +31,12 @@ export const PositionTable = observer(({}: Props) => {
    const positions = positionStore.get()
    const executors = executorStore.get()
 
+   const { page, rowsPerPage, visibleRows, handleChangePage, handleChangeRowsPerPage } =
+      useTablePagination(positions, 12)
+
    if (!positions || !positions.length) {
       return <Typography>You haven't added any positions yet</Typography>
    }
-
-   const { page, rowsPerPage, visibleRows, handleChangePage, handleChangeRowsPerPage } =
-      useTablePagination(positions, 12)
 
    return (
       <Stack
@@ -52,8 +52,8 @@ export const PositionTable = observer(({}: Props) => {
                      <TableCell sx={{ py: 1 }} align="right">
                         Executors
                      </TableCell>
-                     <TableCell sx={{ width: '10px', p: 0.5}}/>
-                     <TableCell sx={{ width: '10px', p: 0.5}}/>
+                     <TableCell sx={{ width: "10px", p: 0.5 }} />
+                     <TableCell sx={{ width: "10px", p: 0.5 }} />
                   </TableRow>
                </TableHead>
                <TableBody>
@@ -63,10 +63,10 @@ export const PositionTable = observer(({}: Props) => {
                         <TableCell align="right">
                            {getExecutorsAmountByPosition(executors?.data, position.id)}
                         </TableCell>
-                        <TableCell sx={{ width: '10px', p: 0.5}}>
+                        <TableCell sx={{ width: "10px", p: 0.5 }}>
                            <EditPositionBtn id={position.id} name={position.name} />
                         </TableCell>
-                        <TableCell sx={{ width: '10px', p: 0.5}}>
+                        <TableCell sx={{ width: "10px", p: 0.5 }}>
                            <DeletePositionBtn id={position.id} name={position.name} />
                         </TableCell>
                      </TableRow>

@@ -1,5 +1,5 @@
-import { CreateProjectForm } from "@/features/Project/create"
 import { Stack, Typography } from "@mui/material"
+import { CreateProjectForm } from "./CreateProjectForm"
 
 export const CreateProject = () => {
    return (

@@ -7,7 +7,7 @@ type Props = {}
 export const NotFoundPage = ({}: Props) => {
    return (
       <Stack
-         sx={{ alignItems: "center", justifyContent: "center", p: 2, height: "100dvh" }}
+         sx={{ alignItems: "center", justifyContent: "center", p: 2, height: "calc(100dvh - 100px)" }}
       >
          <Stack spacing={1}>
             <Typography sx={{ fontSize: 30 }}>Page not found</Typography>

@@ -23,12 +23,12 @@ const getTeamLength = (projectId: string) => projectStore.getTeam(projectId)?.le
 export const ProjectTable = ({}: Props) => {
    const projects = projectStore.get()
 
+   const { page, rowsPerPage, visibleRows, handleChangePage, handleChangeRowsPerPage } =
+      useTablePagination(projects.data, 12)
+
    if (!projects || !projects.data.length) {
       return <Typography>You haven't added any projects yet</Typography>
    }
-
-   const { page, rowsPerPage, visibleRows, handleChangePage, handleChangeRowsPerPage } =
-      useTablePagination(projects.data, 12)
 
    return (
       <Stack

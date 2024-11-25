@@ -1,6 +1,6 @@
 import { Executor, TeamList } from "@/entities/Executor"
-import { EditTaskTeamChip } from "@/features/Task/editTeam"
 import { Stack, Typography } from "@mui/material"
+import { EditTaskTeamChip } from "./editTeam/EditTaskTeamChip"
 
 type Props = {
    taskId: string

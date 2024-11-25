@@ -1,12 +1,12 @@
-import type {Position} from '@/entities/Position/@x/executor'
+import type { Position } from "@/entities/Position/@x/Executor"
 
-export type ExecutorData= {
+export type ExecutorData = {
    id: string
    name: string
    positionId: string | null
 }
 
-export type Executor= {
+export type Executor = {
    id: string
    name: string
    position: Position | null

@@ -1,4 +1,4 @@
-import { Executor } from "@/entities/Executor/@x/project"
+import { Executor } from "@/entities/Executor/@x/Project"
 
 export type ProjectData = {
    id: string

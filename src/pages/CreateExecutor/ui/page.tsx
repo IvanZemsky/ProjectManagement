@@ -1,13 +1,13 @@
-import { CreateExecutorForm } from "@/features/Executor/create"
-import { Box, Typography } from "@mui/material"
+import { Stack, Typography } from "@mui/material"
+import { CreateExecutorForm } from "./CreateExecutorForm"
 
 export const CreateExecutor = () => {
    return (
-      <Box>
+      <Stack spacing={2}>
          <Typography variant="h1" sx={{ mb: 1 }}>
             New executor
          </Typography>
          <CreateExecutorForm />
-      </Box>
+      </Stack>
    )
 }

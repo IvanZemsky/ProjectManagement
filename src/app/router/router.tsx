@@ -1,30 +1,33 @@
+import { NotFoundPage } from "@/pages/NotFoundPage"
+import { setPath } from "@/shared/lib"
+import { Routes } from "@/shared/model"
 import { createHashRouter } from "react-router-dom"
 import { RootLayout } from "../layouts/RootLayout"
-import { Routes } from "@/shared/model"
-import { setPath } from "@/shared/lib"
-import { NotFoundPage } from "@/pages/NotFoundPage"
 import {
    CreateExecutor,
    CreatePosition,
    CreateProject,
    CreateTask,
+   Executor,
+   Executors,
+   Home,
+   Options,
    Positions,
    Project,
    Projects,
-   Options,
-   Home,
    Task,
    Tasks,
-   Executor,
-   Executors
 } from "./lazyPages"
 
 export const router = createHashRouter([
    {
       path: Routes.Home,
       element: <RootLayout />,
-      errorElement: <NotFoundPage />,
       children: [
+         {
+            path: "*",
+            element: <NotFoundPage />,
+         },
          {
             path: Routes.Home,
             element: <Home />,
@@ -47,7 +50,7 @@ export const router = createHashRouter([
          },
          {
             path: setPath(Routes.Executors, ":executorId"),
-            element: <Executor />
+            element: <Executor />,
          },
          {
             path: setPath(Routes.Projects, Routes.Create),
@@ -71,7 +74,7 @@ export const router = createHashRouter([
          },
          {
             path: setPath(Routes.Projects, ":projectId", Routes.Tasks),
-            element: <Tasks />
+            element: <Tasks />,
          },
          {
             path: setPath(Routes.Projects, ":projectId", Routes.Tasks, ":taskId"),

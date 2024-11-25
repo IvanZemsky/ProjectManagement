@@ -1,10 +1,10 @@
+import { Executor, executorStore } from "@/entities/Executor"
 import { useModal } from "@/shared/lib"
 import { BaseModal } from "@/shared/ui"
-import { IconButton, Tooltip } from "@mui/material"
-import { EditExecutorForm } from "./EditExecutorForm"
-import { PointerEventHandler, useState } from "react"
 import EditIcon from "@mui/icons-material/Edit"
-import { Executor, executorStore } from "@/entities/Executor"
+import { IconButton, Tooltip } from "@mui/material"
+import { PointerEventHandler, useState } from "react"
+import { EditExecutorForm } from "./EditExecutorForm"
 
 type Props = {
    id: string

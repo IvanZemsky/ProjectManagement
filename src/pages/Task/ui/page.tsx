@@ -1,14 +1,13 @@
-import { executorStore } from "@/entities/Executor"
+import { Assignee, executorStore } from "@/entities/Executor"
 import { taskStore } from "@/entities/Task"
 import { DeleteTaskBtn } from "@/features/Task/delete"
 import { EditTaskBtn } from "@/features/Task/edit"
 import { setPath } from "@/shared/lib"
 import { Routes } from "@/shared/model"
-import { PageHeader } from "@/widgets/PageHeader"
+import { PageHeader } from "@/shared/ui"
 import { Stack, Typography } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import { useParams } from "react-router-dom"
-import { Assignee } from "./Assignee"
 import { TaskTeamList } from "./TaskTeamList"
 
 export const TaskPage = observer(() => {

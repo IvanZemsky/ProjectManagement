@@ -1,9 +1,9 @@
+import { executorStore } from "@/entities/Executor/@x/Task"
+import { AppStorage } from "@/shared/lib"
+import { GetData, SpecialValues } from "@/shared/model"
 import { autorun, makeAutoObservable } from "mobx"
 import { v4 as uuidv4 } from "uuid"
 import { CreateTaskDto, Task, TaskData } from "./types"
-import { executorStore } from "@/entities/Executor/@x/task"
-import { AppStorage } from "@/shared/lib"
-import { GetData, SpecialValues } from "@/shared/model"
 
 class TaskStore {
    tasks: TaskData[] = []
@@ -61,8 +61,10 @@ class TaskStore {
    }
 
    update = (updatedTask: Task): Task | null => {
-      const team = updatedTask.team.filter(executorId => executorId !== updatedTask.assignee?.id)
-      const taskToSave = this.mapToTaskData({...updatedTask, team})
+      const team = updatedTask.team.filter(
+         (executorId) => executorId !== updatedTask.assignee?.id,
+      )
+      const taskToSave = this.mapToTaskData({ ...updatedTask, team })
 
       this.tasks = this.tasks.map((task) =>
          task.id === updatedTask.id ? taskToSave : task,
@@ -95,7 +97,7 @@ class TaskStore {
    }
 
    public removeNonexistent = (projectId: string) => {
-      this.tasks = this.tasks.filter(task => task.projectId !== projectId)
+      this.tasks = this.tasks.filter((task) => task.projectId !== projectId)
    }
 
    public removeNonexistentExecutorId = (executorId: string) => {

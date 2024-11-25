@@ -1,3 +1,4 @@
+export { PageHeader } from "./PageHeader";
 export { BaseDialog } from "./BaseDialog";
 export { BaseList } from "./BaseList";
 export { TutorialBtn } from "./TutorialBtn";

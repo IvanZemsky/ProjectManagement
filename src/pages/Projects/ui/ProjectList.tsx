@@ -5,9 +5,7 @@ import { useState } from "react"
 
 const limit = 12
 
-type Props = {}
-
-export const ProjectList = ({}: Props) => {
+export const ProjectList = () => {
    const [page, setPage] = useState(1)
    const projects = projectStore.get(limit, page)
 

@@ -1,12 +1,11 @@
-import { SpecialValues } from "@/shared/model"
-import { GetData } from "@/shared/model"
-import { autorun, makeAutoObservable } from "mobx"
-import { Executor, CreateExecutorDto, ExecutorData } from "./types"
-import { v4 as uuidv4 } from "uuid"
 import { AppStorage } from "@/shared/lib"
-import { positionStore } from "@/entities/Position/@x/executor"
+import { GetData, SpecialValues } from "@/shared/model"
+import { autorun, makeAutoObservable } from "mobx"
+import { v4 as uuidv4 } from "uuid"
+import { CreateExecutorDto, Executor, ExecutorData } from "./types"
+import { positionStore } from "@/entities/Position/@x/Executor"
+import { projectStore } from "@/entities/Project/@x/Executor"
 import { taskStore } from "@/entities/Task/@x/executor"
-import { projectStore } from "@/entities/Project/@x/executor"
 
 class ExecutorStore {
    executors: ExecutorData[] = []

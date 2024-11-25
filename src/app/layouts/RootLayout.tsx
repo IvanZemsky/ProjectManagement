@@ -1,12 +1,11 @@
-import { Navbar } from "@/widgets/Navbar"
-import { Box, Grid2 as Grid, Stack } from "@mui/material"
-import { Outlet } from "react-router-dom"
-import { Header } from "@/widgets/Header"
-import { Suspense, useMemo, useRef } from "react"
-import { Loader } from "@/shared/ui"
-import { PageBreadcrumbs } from "@/shared/ui"
+import { defaultOptions, optionsStorage } from "@/shared/model"
 import { theme } from "@/shared/theme"
-import { optionsStorage, defaultOptions } from "@/shared/model"
+import { Loader, PageBreadcrumbs } from "@/shared/ui"
+import { Box, Grid2 as Grid, Stack } from "@mui/material"
+import { Suspense, useMemo, useRef } from "react"
+import { Outlet } from "react-router-dom"
+import { Header } from "./common/Header/Header"
+import { Navbar } from "./common/Navbar/Navbar"
 
 export const RootLayout = () => {
    const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -14,9 +13,9 @@ export const RootLayout = () => {
 
    return (
       <Stack sx={{ height: "100vh" }}>
-         <Header/>
+         <Header />
          <Grid container size="grow" sx={{ flexWrap: "nowrap" }}>
-            {options.menu !== 'right' && <Navbar />}
+            {options.menu !== "right" && <Navbar />}
             <Stack
                ref={scrollContainerRef}
                sx={{
@@ -52,7 +51,7 @@ export const RootLayout = () => {
                   </Suspense>
                </Box>
             </Stack>
-            {options.menu === 'right' && <Navbar />}
+            {options.menu === "right" && <Navbar />}
          </Grid>
       </Stack>
    )

@@ -1,5 +1,5 @@
-import { CreateTaskForm } from "@/features/Task/create"
 import { Stack, Typography } from "@mui/material"
+import { CreateTaskForm } from "./CreateTaskForm"
 
 type Props = {}
 export const CreateTask = ({}: Props) => {

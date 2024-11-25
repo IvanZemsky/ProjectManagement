@@ -1,9 +1,9 @@
-import { Executor } from "@/entities/Executor/@x/task"
+import { Executor } from "@/entities/Executor/@x/Task"
 
-export type TaskStatus = 'to do' | 'in progress' | 'review' | 'done'
+export type TaskStatus = "to do" | "in progress" | "review" | "done"
 
 export type TaskColumnData = {
-   id: TaskStatus,
+   id: TaskStatus
    label: string
 }
 
