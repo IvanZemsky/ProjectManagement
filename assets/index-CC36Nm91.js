@@ -1,0 +1,1 @@
+import{K as o,j as t,ai as e,M as a,R as r}from"./index-DW7niEK_.js";const c=()=>{const{projectId:s}=o();return s?t.jsx(e,{to:a("",r.Projects,s),replace:!0}):t.jsx(e,{to:a("",r.Projects),replace:!0})};export{c as default};

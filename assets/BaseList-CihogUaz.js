@@ -1,0 +1,1 @@
+import{j as s,S as i}from"./index-DW7niEK_.js";import{P as x}from"./AutoGrid-BTHqS-sk.js";const c=({totalCount:t,limit:e,currentPage:n,setPage:o,sx:r,children:a})=>s.jsxs(i,{spacing:2,sx:{flexGrow:1,justifyContent:"space-between",...r},children:[a,s.jsx(x,{itemsCount:t,limit:e,currentPage:n,setPage:o})]});export{c as B};

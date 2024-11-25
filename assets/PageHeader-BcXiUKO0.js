@@ -1,0 +1,1 @@
+import{j as r,S as e,T as t,t as n}from"./index-DW7niEK_.js";const o=({title:s,children:a})=>r.jsxs(e,{direction:"row",sx:{alignItems:"center",flexWrap:"wrap",gap:1,mb:2},children:[r.jsx(t,{variant:"h1",sx:{[n.breakpoints.down("sm")]:{fontSize:19}},children:s}),r.jsx(e,{direction:"row",spacing:1,children:a})]});export{o as P};
