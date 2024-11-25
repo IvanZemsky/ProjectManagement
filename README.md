@@ -2,7 +2,7 @@
 
 Demo: https://ivanzemsky.github.io/ProjectManagement/
 
-The main goal of this project is to create a simple client web application using the feature-sliced-design architecture.
+The main goal of this project was to create a simple client web application using the feature-sliced-design architecture.
 The project was originally written in FSD v2.0 and later migrated to FSD v2.1, so now it implements the "pages-first" approach.
 
 The application is single-user and does not have a database, all data is stored in the browser's local storage.
