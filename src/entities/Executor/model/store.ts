@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid"
 import { CreateExecutorDto, Executor, ExecutorData } from "./types"
 import { positionStore } from "@/entities/Position/@x/Executor"
 import { projectStore } from "@/entities/Project/@x/Executor"
-import { taskStore } from "@/entities/Task/@x/executor"
+import { taskStore } from "@/entities/Task/@x/Executor"
 
 class ExecutorStore {
    executors: ExecutorData[] = []
